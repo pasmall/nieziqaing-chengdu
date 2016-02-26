@@ -32,6 +32,7 @@
     UITextField *_field;
     UIButton *_removeBtn;
     UIButton *_addBtn;
+    BOOL _isA;
 
 }
 @end
@@ -45,6 +46,10 @@
         self.backgroundColor= [UIColor whiteColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        _isA = YES;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TapEdit:) name:@"cartEdit" object:nil];
+        
         UIView *bg = [[UIView alloc]init];
         bg.backgroundColor = RGB(245, 245, 245);
         bg.frame = CGRectMake(0, 0, MainW, 10);
@@ -52,8 +57,8 @@
         
         _selectBtn = [[UIButton alloc]init];
         _selectBtn.contentMode = UIViewContentModeScaleAspectFit;
-        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
-
+//        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+        [_selectBtn addTarget:self action:@selector(TapSelectBtn) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_selectBtn];
         
         
@@ -206,7 +211,7 @@
     NSURL *shopImg = [NSURL URLWithString:dealData.image];
     [_shopImg sd_setImageWithURL:shopImg placeholderImage:[UIImage imageNamed:@"ugc_photo"]];
     
-    _title.text = dealData.title;
+    _title.text = dealData.min_title;
     
 //    _score.text =[NSString stringWithFormat:@"%.1f" , dealData.score] ;
     
@@ -240,9 +245,47 @@
     NSString *nowStr =[NSString stringWithFormat:@"小记: ￥%d",now * DBmodel.count];
     _nowprice.text =nowStr;
     
+    self.sumPirce = now * DBmodel.count;
+    self.count = _DBmodel.count;
 }
 
 
+
+- (void)TapEdit:(id)sender{
+    NSLog(@"%@" , sender);
+    int x = [[sender object] intValue];
+    if (x == 1) {
+        _isSelect = ECOff;
+        line2.hidden = YES;
+        _noBtn.hidden = YES;
+        _isA = NO;
+    }else if(x == 2){
+        _isSelect = ECOn;;
+        line2.hidden = NO;
+        _noBtn.hidden = NO;
+        _isA = YES;
+    }else if (x == 3){
+        _isSelect = ECOff;;
+    }else{
+        _isSelect = ECOn;;
+    }
+    if (_isSelect == ECOn) {
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+        
+    }else{
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
+    }
+    
+    if (_isA) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isCart" object:@"1"];
+    }else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isCart" object:@"2"];
+    }
+}
+
+//- (void)dealloc{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 #pragma mark --Action
 
 - (void)TapRemoveBtn{
@@ -255,7 +298,39 @@
 }
 
 - (void)TapNoBtn{
-    [MBProgressHUD_Custom showError:@"╮(╯_╰)╭目前没有优惠"];
+    [MBProgressHUD_Custom showError:@"目前没有优惠"];
+}
+
+
+- (void)TapSelectBtn{
+    
+    if (_isSelect == ECOn) {
+        
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
+        _isSelect = ECOff;
+        
+    }else{
+        
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+        _isSelect = ECOn;
+    }
+    if (_isA) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isCart" object:@"1"];
+    }else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isCart" object:@"2"];
+    }
+    
+    
+}
+
+- (void)setIsSelect:(ECselect)isSelect{
+    _isSelect = isSelect;
+    if (_isSelect == ECOn) {
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+    }else{
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
+    }
+
 }
 
 @end

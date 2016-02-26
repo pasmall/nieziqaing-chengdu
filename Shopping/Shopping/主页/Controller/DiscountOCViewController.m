@@ -36,6 +36,7 @@
 @end
 
 @implementation DiscountOCViewController
+@synthesize title;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

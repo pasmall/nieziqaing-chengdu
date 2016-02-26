@@ -10,6 +10,10 @@
 #import "DealInfoData.h"
 #import "DBdealModel.h"
 
+typedef enum : NSUInteger {
+    ECOff,
+    ECOn,
+} ECselect;
 
 @interface cartDealCell : UITableViewCell
 
@@ -17,5 +21,11 @@
 
 
 @property (nonatomic , strong)DBdealModel *DBmodel;
+
+@property (nonatomic , assign)ECselect isSelect;
+
+@property (nonatomic ,assign)int sumPirce;
+
+@property (nonatomic , assign)int count;
 
 @end

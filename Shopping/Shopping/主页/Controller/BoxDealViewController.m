@@ -14,6 +14,8 @@
 #import "NSObject+MJKeyValue.h"
 #import "DBdealModel.h"
 
+
+static bool _selectType = NO;
 @interface BoxDealViewController()<UITableViewDataSource , UITableViewDelegate>{
     UIView *_navView;
     UIButton *_backBtn;
@@ -22,6 +24,12 @@
     
     UIView *_downView;
     UIButton *_selectBtn;
+    UILabel *_sumPrice;
+    UIButton *_clearingBtn;
+    __block int sum ;
+    __block int sumCount ;
+    
+    UILabel *lab;
 }
 
 @property (nonatomic , strong)UITableView *tableView;
@@ -29,6 +37,14 @@
 @property (nonatomic , strong)NSMutableArray *cartDeals;
 
 @property (nonatomic , strong)NSArray *arr;
+
+@property (nonatomic  , strong)NSMutableArray *arrIndexPaths;
+
+@property (nonatomic , strong)NSMutableArray *deleteItems;
+
+@property(nonatomic , strong)NSMutableArray *existItems;
+
+
 @end
 
 
@@ -36,10 +52,17 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    sum = 0;
+    sumCount = 0;
     self.view.backgroundColor = RGB(244, 244, 244);
     
     self.cartDeals = [NSMutableArray array];
     self.arr = [NSArray array];
+    self.arrIndexPaths = [NSMutableArray array];
+    self.deleteItems = [NSMutableArray array];
+    self.existItems = [NSMutableArray array];
+    
+    
     [self initNav];
     [self initDownView];
     //读取数据
@@ -54,11 +77,50 @@
     _tableView = tabelView;
     [self.view addSubview:tabelView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(isCartChange:) name:@"isCart" object:nil];
+    
+}
+
+- (void)isCartChange:(id)sender{
+    int x = [[sender object] intValue];
+    [self getSelectedItemsWith:x];
+    if (x==1) {
+        if (self.deleteItems.count < _arr.count) {
+            _selectType = YES;
+            [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+            _clearingBtn.backgroundColor =mainColor;
+            _clearingBtn.enabled = YES;
+        }else{
+            _selectType = NO;
+            [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
+            _clearingBtn.backgroundColor = RGB(200, 200, 200);
+            _clearingBtn.enabled = NO;
+        }
+    }else{
+        if (self.deleteItems.count  == _arr.count) {
+            _selectType = YES;
+            [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+        }else{
+            _selectType = NO;
+            [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
+        }
+        
+        if (self.existItems.count > 0) {
+            _clearingBtn.backgroundColor = mainColor;
+            _clearingBtn.enabled = YES;
+        }else{
+            _clearingBtn.enabled = NO;
+//            _clearingBtn.backgroundColor = RGB(200, 200, 200);
+        }
+    }
 }
 
 - (void)getBaiduDeals{
     BaiDuAPI *api = [BaiDuAPI shareBaiDuApi];
     
+   
+    
+    [SVProgressHUD showWithStatus:@"努力加载..." maskType:SVProgressHUDMaskTypeClear];
     NSString *httpUrl = @"http://apis.baidu.com/baidunuomi/openapi/dealdetail";
     
     self.arr =[DBHelper getDealsWithUserName:[AppDataSource sharedDataSource].userName];
@@ -69,10 +131,18 @@
         NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, httpArg];
         
         [api sendGETRequestWithURLString:urlStr parameters:nil callBack:^(RequestResult result, id object) {
+            DealInfoData *data = [DealInfoData objectWithKeyValues:object[@"deal"]];
+            [self.cartDeals addObject:data];
             
-            [self.cartDeals addObject:[DealInfoData objectWithKeyValues:object[@"deal"]]];
+            sum = sum + model.count * [data.current_price intValue]/100;
+            sumCount = sumCount + model.count;
             if (self.cartDeals.count == self.arr.count) {
                 [_tableView reloadData];
+                _sumPrice.text = [NSString stringWithFormat:@"￥%d" , sum];
+                NSString *str = [NSString stringWithFormat:@"结算(%d)" , sumCount];
+                [_clearingBtn setTitle:str forState:UIControlStateNormal];
+                
+                [SVProgressHUD dismiss];
             }
             
         }];
@@ -133,6 +203,30 @@
     _selectBtn.centerY = _downView.height*0.5;
     
     [_downView addSubview:_selectBtn];
+    
+    
+    lab = [[UILabel alloc]initWithFrame:CGRectMake(40, 0, 30, 20)];
+    lab.text = @"应付:";
+    lab.centerY =_downView.height*0.5;
+    lab.font = [UIFont systemFontOfSize:12];
+    lab.textColor = [UIColor blackColor];
+    [_downView addSubview:lab];
+    
+    _sumPrice = [[UILabel alloc]initWithFrame:CGRectMake(75, 0, 100, 20)];
+    _sumPrice.font =[UIFont systemFontOfSize:12];
+    _sumPrice.textColor = mainColor;
+    _sumPrice.centerY =_downView.height*0.5;
+    _sumPrice.text = @"￥0";
+    [_downView addSubview:_sumPrice];
+    
+    _clearingBtn = [[UIButton alloc]initWithFrame:CGRectMake(MainW*2/3, 0, MainW/3, 43.5)];
+//    _clearingBtn.backgroundColor = RGB(255, 214, 224);
+    _clearingBtn.backgroundColor = mainColor;
+    _clearingBtn.titleLabel.font = [UIFont systemFontOfSize:13 weight:5];
+    [_clearingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_clearingBtn setTitle:@"结算(0)" forState:UIControlStateNormal];
+    [_clearingBtn addTarget:self action:@selector(TapClearingBtn) forControlEvents:UIControlEventTouchUpInside];
+    [_downView addSubview:_clearingBtn];
 
 
 }
@@ -161,7 +255,8 @@
     
     cell.dealData = self.cartDeals[indexPath.row];
     cell.DBmodel = self.arr[indexPath.row];
-    
+    cell.isSelect = ECOn;
+    [self.arrIndexPaths addObject:indexPath];
     return cell;
 }
 
@@ -178,11 +273,93 @@
 
 - (void)tapEdit{
     
+    if ([_rightBtn.titleLabel.text isEqualToString:@"编辑"]) {
+        [_rightBtn setTitle:@"完成" forState:UIControlStateNormal];
+        _title.text = @"编辑购物车";
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"cartEdit" object:@"1"];
+        _clearingBtn.backgroundColor = RGB(200, 200, 200);
+        [_clearingBtn setTitle:@"删除" forState:UIControlStateNormal];
+        _backBtn.hidden = YES;
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
+        _sumPrice.hidden = YES;
+        lab.text = @"全选";
+        _selectType = NO;
+    }else{
+        [_rightBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        _title.text = @"购物车";
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"cartEdit" object:@"2"];
+        _clearingBtn.backgroundColor = mainColor;
+        [_clearingBtn setTitle:@"结算" forState:UIControlStateNormal];
+        _backBtn.hidden = NO;
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+        _sumPrice.hidden = NO;
+        lab.text = @"应付:";
+        _selectType = YES;
+    }
+    
+    
 }
+
 
 - (void)TapSelectBtn{
+    _selectType = !_selectType;
+    if (_selectType) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"cartEdit" object:@"3"];
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
+    }else{
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"cartEdit" object:@"4"];
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+    }
+}
 
+- (void)TapClearingBtn{
+    
+    
 
 }
+
+
+- (void)getSelectedItemsWith:(int)type{
+    [self.deleteItems removeAllObjects];
+    [self.existItems removeAllObjects];
+    sum = 0;
+    sumCount = 0;
+    for (int i = 0; i< _arrIndexPaths.count; i++) {
+        NSIndexPath *indexPath = _arrIndexPaths[i];
+        cartDealCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
+        
+        if (type == 1) {
+            if (cell.isSelect == ECOff) {
+                [self.deleteItems addObject:cell.DBmodel];
+            }else{
+                [self.existItems addObject:cell.DBmodel];
+                sum = sum + cell.sumPirce;
+                sumCount = sumCount + cell.count;
+            }
+        }else{
+            if (cell.isSelect == ECOn) {
+                [self.deleteItems addObject:cell.DBmodel];
+                sumCount = sumCount + cell.count;
+            }else{
+                [self.existItems addObject:cell.DBmodel];
+            }
+        }
+        
+        
+    }
+    if (type == 1) {
+        _sumPrice.text = [NSString stringWithFormat:@"￥%d" , sum];
+        NSString *str = [NSString stringWithFormat:@"结算(%d)" , sumCount];
+        [_clearingBtn setTitle:str forState:UIControlStateNormal];
+    }else{
+        NSString *str = [NSString stringWithFormat:@"删除(%d)" , sumCount];
+        [_clearingBtn setTitle:str forState:UIControlStateNormal];
+    }
+    
+    
+
+}
+
+
 
 @end

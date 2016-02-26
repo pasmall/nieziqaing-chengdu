@@ -12,6 +12,7 @@
 
 @property (nonatomic ,copy)NSString *deal_id;
 @property (nonatomic ,copy)NSString *title;
+@property (nonatomic ,copy)NSString *min_title;
 @property (nonatomic ,copy)NSString *description;
 @property (nonatomic ,copy)NSString *long_title;
 @property (nonatomic ,copy)NSString *market_price;
