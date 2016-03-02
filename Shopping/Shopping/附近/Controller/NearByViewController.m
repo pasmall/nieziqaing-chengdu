@@ -13,6 +13,7 @@
 #import "NSObject+MJKeyValue.h"
 #import "AppDelegate.h"
 #import "MapAnnotation.h"
+#import "DealInfoViewController.h"
 
 @interface NearByViewController ()< MKMapViewDelegate>{
     
@@ -39,7 +40,9 @@
     
     [self setNav];
     [self initMapView];
-//    [self getBaiduDealsWithCityId:326];
+    [self getBaiduDealsWithCityId:326];
+    [self getBaiduDealsWithCityId:316];
+    [self getBaiduDealsWithCityId:320];
     
     
 }
@@ -50,24 +53,37 @@
 }
 
 - (void)getBaiduDealsWithCityId:(int)catId{
-//    BaiDuAPI *api = [BaiDuAPI shareBaiDuApi];
-//    
-//
-//    AppDelegate *dt =  (AppDelegate*)[UIApplication sharedApplication].delegate;
-//    
-//    
-//    NSString *httpUrl = @"http://apis.baidu.com/baidunuomi/openapi/searchdeals";
-//    NSString *httpArg = [NSString stringWithFormat:@"city_id=%f&cat_ids=%d&location=%f%2C%f&page_size=22",[AppDataSource sharedDataSource].cityId,catId ,dt.latitude ,dt.longitude ];
-//    NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, httpArg];
-//    
-//    [api sendGETRequestWithURLString:urlStr parameters:nil callBack:^(RequestResult result, id object) {
-//        
-//        NSArray *arry = object[@"data"][@"deals"];
-//        self.deals1 = [BaiDuDealData objectArrayWithKeyValuesArray:arry];
-//        //添加大头针
-//        [self addAnnotation];
-//
-//    }];
+    BaiDuAPI *api = [BaiDuAPI shareBaiDuApi];
+    
+
+    AppDelegate *dt =  (AppDelegate*)[UIApplication sharedApplication].delegate;
+    
+    NSString *cl = [NSString stringWithFormat:@"%f,%f" , dt.longitude, dt.latitude];
+    
+    NSString *httpUrl = @"http://apis.baidu.com/baidunuomi/openapi/searchdeals";
+    NSString *httpArg = [NSString stringWithFormat:@"city_id=%@&cat_ids=%d&radius=30000&location=%@&sort=5&page_size=22",[AppDataSource sharedDataSource].cityId,catId ,cl];
+    NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, httpArg];
+    
+    [api sendGETRequestWithURLString:urlStr parameters:nil callBack:^(RequestResult result, id object) {
+        
+        if (catId == 326) {
+            NSArray *arry = object[@"data"][@"deals"];
+            self.deals1 = [BaiDuDealData objectArrayWithKeyValuesArray:arry];
+            //添加大头针
+            [self addAnnotation];
+        }else if(catId == 316){
+            NSArray *arry = object[@"data"][@"deals"];
+            self.deals2 = [BaiDuDealData objectArrayWithKeyValuesArray:arry];
+            [self addAnnotation1];
+        }else{
+            NSArray *arry = object[@"data"][@"deals"];
+            self.deals3 = [BaiDuDealData objectArrayWithKeyValuesArray:arry];
+            [self addAnnotation2];
+        }
+        
+       
+
+    }];
     
 }
 
@@ -117,32 +133,115 @@
         NSDictionary *dic = dicArr[0];
         NSLog(@"%@" , dic);
         
-        CLLocationCoordinate2D location=CLLocationCoordinate2DMake(39.95, 116.35);
+        
+        NSString *str = [NSString stringWithFormat:@"%@  ￥%d" , data.min_title,[data.current_price intValue]/100];
+        
+        double d1 = [dic[@"latitude"] doubleValue];
+        double d2 = [dic[@"longitude"] doubleValue];
+        CLLocationCoordinate2D location=CLLocationCoordinate2DMake(d1, d2);
         MapAnnotation *annotation1=[[MapAnnotation alloc]init];
         annotation1.title=data.title;
-        annotation1.subtitle=data.description;
+        annotation1.subtitle=str;
         annotation1.coordinate=location;
+        annotation1.image = [UIImage imageNamed:@"icon_map_cateid_1@2x"];
+        annotation1.imgUrlStr = data.tiny_image;
+        annotation1.dealId = data.deal_id;
         [_mapView addAnnotation:annotation1];
 
     }
-    
-    
-    
-    
-//    CLLocationCoordinate2D location1=CLLocationCoordinate2DMake(39.95, 116.35);
-//    KCAnnotation *annotation1=[[KCAnnotation alloc]init];
-//    annotation1.title=@"CMJ Studio";
-//    annotation1.subtitle=@"Kenshin Cui's Studios";
-//    annotation1.coordinate=location1;
-//    [_mapView addAnnotation:annotation1];
-//
-//    CLLocationCoordinate2D location2=CLLocationCoordinate2DMake(39.87, 116.35);
-//    KCAnnotation *annotation2=[[KCAnnotation alloc]init];
-//    annotation2.title=@"Kenshin&Kaoru";
-//    annotation2.subtitle=@"Kenshin Cui's Home";
-//    annotation2.coordinate=location2;
-//    [_mapView addAnnotation:annotation2];
 }
+-(void)addAnnotation1{
+    for (int i =0 ; i < self.deals2.count; i ++) {
+        BaiDuDealData *data = self.deals2[i];
+        
+        NSArray *dicArr  = data.shops;
+        NSDictionary *dic = dicArr[0];
+        NSLog(@"%@" , dic);
+        
+        
+        NSString *str = [NSString stringWithFormat:@"%@  ￥%d" , data.min_title,[data.current_price intValue]/100];
+        
+        double d1 = [dic[@"latitude"] doubleValue];
+        double d2 = [dic[@"longitude"] doubleValue];
+        CLLocationCoordinate2D location=CLLocationCoordinate2DMake(d1, d2);
+        MapAnnotation *annotation1=[[MapAnnotation alloc]init];
+        annotation1.title=data.title;
+        annotation1.subtitle=str;
+        annotation1.coordinate=location;
+        annotation1.image = [UIImage imageNamed:@"icon_map_cateid_@2x"];
+        annotation1.imgUrlStr = data.tiny_image;
+        annotation1.dealId = data.deal_id;
+        [_mapView addAnnotation:annotation1];
+        
+    }
+}
+-(void)addAnnotation2{
+    for (int i =0 ; i < self.deals3.count; i ++) {
+        BaiDuDealData *data = self.deals3[i];
+        
+        NSArray *dicArr  = data.shops;
+        NSDictionary *dic = dicArr[0];
+        NSLog(@"%@" , dic);
+        
+        
+        NSString *str = [NSString stringWithFormat:@"%@  ￥%d" , data.min_title,[data.current_price intValue]/100];
+        
+        double d1 = [dic[@"latitude"] doubleValue];
+        double d2 = [dic[@"longitude"] doubleValue];
+        CLLocationCoordinate2D location=CLLocationCoordinate2DMake(d1, d2);
+        MapAnnotation *annotation1=[[MapAnnotation alloc]init];
+        annotation1.title=data.title;
+        annotation1.subtitle=str;
+        annotation1.coordinate=location;
+        annotation1.image = [UIImage imageNamed:@"icon_map_cateidz@2x"];
+        annotation1.imgUrlStr = data.tiny_image;
+        annotation1.dealId = data.deal_id;
+        [_mapView addAnnotation:annotation1];
+        
+    }
+}
+
+
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation{
+    if([annotation isKindOfClass:[MapAnnotation class]]){
+    
+        static NSString *identfier = @"key1";
+        
+        MKAnnotationView *annot = [_mapView dequeueReusableAnnotationViewWithIdentifier:identfier];
+        
+        if (annot == nil) {
+            annot = [[MKAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:identfier];
+            annot.canShowCallout = YES;
+            annot.calloutOffset = CGPointMake(0, 1);
+            
+            
+            
+            NSURL *shopImg = [NSURL URLWithString:((MapAnnotation *)annotation).imgUrlStr];
+            UIImageView *imgv = [[UIImageView alloc]init];
+            imgv.frame = CGRectMake(0, 0, 40, 50);
+            [imgv sd_setImageWithURL:shopImg placeholderImage:[UIImage imageNamed:@"ugc_photo"]];
+            annot.leftCalloutAccessoryView = imgv;
+            
+            
+            UIButton *rbtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 20)];
+            [rbtn setTitle:@"看一看(⊙o⊙)" forState:UIControlStateNormal];
+            rbtn.tag =[((MapAnnotation *)annotation).dealId intValue];
+            [rbtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            rbtn.titleLabel.font = [UIFont systemFontOfSize:10 weight:8];
+            [rbtn addTarget:self action:@selector(TaprBtn:) forControlEvents:UIControlEventTouchUpInside];
+            annot.rightCalloutAccessoryView =rbtn;
+        }
+    
+        annot.annotation = annotation;
+        annot.image = ((MapAnnotation *)annotation).image;
+        
+        return annot;
+    }else{
+        return nil;
+    }
+
+}
+
 #pragma mark 更新用户位置，只要用户改变则调用此方法（包括第一次定位到用户位置）
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
     
@@ -151,6 +250,18 @@
     //    MKCoordinateSpan span=MKCoordinateSpanMake(0.01, 0.01);
     //    MKCoordinateRegion region=MKCoordinateRegionMake(userLocation.location.coordinate, span);
     //    [_mapView setRegion:region animated:true];
+}
+
+
+#pragma mark -Action
+
+- (void)TaprBtn:(UIButton *)btn{
+    NSLog(@"%ld" , (long)btn.tag);
+    
+    DealInfoViewController *info = [[DealInfoViewController alloc]init];
+    NSString *str = [NSString stringWithFormat:@"%ld" ,(long)btn.tag];
+    info.dealId =str;
+    [self.navigationController pushViewController:info animated:YES];
 }
 
 @end

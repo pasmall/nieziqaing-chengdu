@@ -14,6 +14,7 @@
 @property (nonatomic ,copy)NSString *image;
 @property (nonatomic ,copy)NSString *tiny_image;
 @property (nonatomic ,copy)NSString *title;
+@property (nonatomic ,copy)NSString *min_title;
 @property (nonatomic ,copy)NSString *total;
 @property (nonatomic ,copy)NSString *description;
 @property (nonatomic ,copy)NSString *sale_num;

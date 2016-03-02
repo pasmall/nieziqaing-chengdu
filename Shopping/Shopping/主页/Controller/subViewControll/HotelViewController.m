@@ -208,7 +208,7 @@ static int count = 1;
     BaiDuAPI *api = [BaiDuAPI shareBaiDuApi];
     
     NSString *httpUrl = @"http://apis.baidu.com/baidunuomi/openapi/searchdeals";
-    NSString *httpArg = [NSString stringWithFormat:@"city_id=%@&cat_ids=326&sort=%d&page_size=10" , _cityId ,x ];
+    NSString *httpArg = [NSString stringWithFormat:@"city_id=%@&cat_ids=377&sort=%d&page_size=10" , _cityId ,x ];
     NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, httpArg];
     
     [api sendGETRequestWithURLString:urlStr parameters:nil callBack:^(RequestResult result, id object) {

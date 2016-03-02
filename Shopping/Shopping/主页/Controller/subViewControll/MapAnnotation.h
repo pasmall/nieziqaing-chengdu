@@ -20,4 +20,8 @@
 
 @property (nonatomic,strong) UIImage *image;
 
+@property (nonatomic , copy) NSString *imgUrlStr;
+
+
+@property (nonatomic , copy)NSString *dealId;
 @end

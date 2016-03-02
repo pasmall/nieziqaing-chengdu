@@ -10,7 +10,7 @@
 #import "Common.h"
 #import "LoginViewController.h"
 
-@interface MineViewController (){
+@interface MineViewController ()<UIAlertViewDelegate>{
     UIButton *loginbtn;
     
     UIButton *userIcon;
@@ -18,6 +18,8 @@
     UILabel *tipLab;
     
     UILabel *tip;
+    
+    UIButton *offBtn;
 }
 
 @end
@@ -30,8 +32,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets  = NO;
     
-    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MainW , MainH)];
-    scroll.backgroundColor = RGB(224, 224, 224);
+    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MainW , MainH - 44)];
+    scroll.contentSize = CGSizeMake(MainW, 631);
+    scroll.bounces = YES;
+    scroll.backgroundColor = RGB(239, 244, 244);
+    scroll.showsVerticalScrollIndicator = NO;
+    scroll.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:scroll];
     
     UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MainW, 150)];
@@ -71,6 +77,26 @@
     [topView addSubview:loginbtn];
     [scroll addSubview:topView];
     
+    offBtn = [[UIButton alloc]initWithFrame:CGRectMake(MainW - 40, 20, 40, 20)];
+    [offBtn setTitle:@"注销" forState:UIControlStateNormal];
+    [offBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [offBtn addTarget:self action:@selector(clearing) forControlEvents:UIControlEventTouchUpInside];
+    offBtn.titleLabel.font =[UIFont systemFontOfSize:12 weight:4];
+    offBtn.hidden = YES;
+    [topView addSubview:offBtn];
+    
+    UIImageView *imgView1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 150, MainW, 261)];
+    imgView1.contentMode = UIViewContentModeScaleAspectFit;
+    [imgView1 setImage:[UIImage imageNamed:@"me.jpeg"]];
+    imgView1.backgroundColor = [UIColor redColor];
+    [scroll addSubview:imgView1];
+    
+    UIImageView *imgView2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 150 +261, MainW, 220)];
+    imgView2.contentMode = UIViewContentModeScaleAspectFit;
+    [imgView2 setImage:[UIImage imageNamed:@"me2.jpeg"]];
+    imgView2.backgroundColor = [UIColor redColor];
+    [scroll addSubview:imgView2];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -81,12 +107,14 @@
         tipLab.text = [NSString stringWithFormat:@"欢迎%@",[AppDataSource sharedDataSource].userName];
         tipLab.hidden = NO;
         tip.y = loginbtn.y ;
+        offBtn.hidden = NO;
         
     }else{
         loginbtn.hidden = NO;
         userIcon.hidden = YES;
         tipLab.hidden = YES;
         tip.y = loginbtn.y + 34;
+        offBtn.hidden = YES;
     }
     
 
@@ -116,7 +144,28 @@
 
 }
 
-
-
+- (void)clearing{
+    
+    UIAlertView *alter = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定要退出登录吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    alter.tag = 66;
+    [alter show];
+    
+    
+   
+    
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag == 66) {
+        if (buttonIndex == 0) {
+            [[AppDataSource sharedDataSource] clearDatas];
+            loginbtn.hidden = NO;
+            userIcon.hidden = YES;
+            tipLab.hidden = YES;
+            tip.y = loginbtn.y + 34;
+            offBtn.hidden = YES;
+        }
+    }
+}
 
 @end
