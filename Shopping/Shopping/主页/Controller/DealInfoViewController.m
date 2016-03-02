@@ -18,6 +18,8 @@
 #import "AppDelegate.h"
 #import "BoxDealViewController.h"
 #import "LoginViewController.h"
+#import "AffirmViewController.h"
+#import "AffirmModel.h"
 
 @interface DealInfoViewController ()<UITableViewDataSource , UITableViewDelegate>{
     UIButton *btn1;
@@ -304,6 +306,18 @@
     
 }
 - (void)TapPay{
+    AffirmViewController *aff = [[AffirmViewController alloc]init];
+    AffirmModel *model = [[AffirmModel alloc]init];
+    model.dealName = self.deal.min_title;
+    
+    int now =[self.deal.current_price intValue]/100;
+    NSString *oneStr = [NSString stringWithFormat:@"￥%d",now];
+    model.onePrice = oneStr;
+    model.coount = 1;
+    aff.dealsArray = [NSArray arrayWithObjects:model, nil];
+    aff.allPrice = oneStr;
+    
+    [self.navigationController pushViewController:aff animated:YES];
     
 }
 
