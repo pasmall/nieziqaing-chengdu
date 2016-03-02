@@ -13,10 +13,11 @@
 #import "DealInfoData.h"
 #import "NSObject+MJKeyValue.h"
 #import "DBdealModel.h"
-
+#import "AffirmViewController.h"
+#import "AffirmModel.h"
 
 static bool _selectType = NO;
-@interface BoxDealViewController()<UITableViewDataSource , UITableViewDelegate>{
+@interface BoxDealViewController()<UITableViewDataSource , UITableViewDelegate , UIAlertViewDelegate>{
     UIView *_navView;
     UIButton *_backBtn;
     UILabel *_title;
@@ -30,6 +31,9 @@ static bool _selectType = NO;
     __block int sumCount ;
     
     UILabel *lab;
+    
+    
+    BOOL _isA;
 }
 
 @property (nonatomic , strong)UITableView *tableView;
@@ -52,6 +56,7 @@ static bool _selectType = NO;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    _isA = YES;
     sum = 0;
     sumCount = 0;
     self.view.backgroundColor = RGB(244, 244, 244);
@@ -85,6 +90,7 @@ static bool _selectType = NO;
     int x = [[sender object] intValue];
     [self getSelectedItemsWith:x];
     if (x==1) {
+        _isA = YES;
         if (self.deleteItems.count < _arr.count) {
             _selectType = YES;
             [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
@@ -97,6 +103,7 @@ static bool _selectType = NO;
             _clearingBtn.enabled = NO;
         }
     }else{
+        _isA = NO;
         if (self.deleteItems.count  == _arr.count) {
             _selectType = YES;
             [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
@@ -105,27 +112,30 @@ static bool _selectType = NO;
             [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
         }
         
-        if (self.existItems.count > 0) {
+        if (self.deleteItems.count > 0) {
             _clearingBtn.backgroundColor = mainColor;
             _clearingBtn.enabled = YES;
         }else{
             _clearingBtn.enabled = NO;
-//            _clearingBtn.backgroundColor = RGB(200, 200, 200);
+            _clearingBtn.backgroundColor = RGB(200, 200, 200);
         }
     }
 }
 
+static int i = 0;
 - (void)getBaiduDeals{
     BaiDuAPI *api = [BaiDuAPI shareBaiDuApi];
     
-   
+    [self.arrIndexPaths  removeAllObjects];
     
     [SVProgressHUD showWithStatus:@"努力加载..." maskType:SVProgressHUDMaskTypeClear];
     NSString *httpUrl = @"http://apis.baidu.com/baidunuomi/openapi/dealdetail";
+//    sum = 0;
+//    sumCount = 0;
+    
     
     self.arr =[DBHelper getDealsWithUserName:[AppDataSource sharedDataSource].userName];
-    for (int i =0 ; i < self.arr.count; i++) {
-        
+//    for (int i =0 ; i < self.arr.count; i++) {
         DBdealModel *model = self.arr[i];
         NSString *httpArg = [NSString stringWithFormat:@"deal_id=%@" , model.dealId];
         NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, httpArg];
@@ -136,18 +146,37 @@ static bool _selectType = NO;
             
             sum = sum + model.count * [data.current_price intValue]/100;
             sumCount = sumCount + model.count;
+            
+            //初始化需要购买的订单
+            AffirmModel *affirm = [[AffirmModel alloc]init];
+            affirm.dealName = data.min_title;
+            affirm.coount = model.count;
+            int now =[data.current_price intValue]/100;
+            NSString *oneStr = [NSString stringWithFormat:@"￥%d",now];
+            affirm.onePrice = oneStr;
+            
+            [self.existItems addObject:affirm];
+            
+            
+            
             if (self.cartDeals.count == self.arr.count) {
                 [_tableView reloadData];
                 _sumPrice.text = [NSString stringWithFormat:@"￥%d" , sum];
                 NSString *str = [NSString stringWithFormat:@"结算(%d)" , sumCount];
                 [_clearingBtn setTitle:str forState:UIControlStateNormal];
+                i = 0;
+                
+                
                 
                 [SVProgressHUD dismiss];
+            }else{
+                i = i +1;
+                [self getBaiduDeals];
             }
             
         }];
         
-    }
+//    }
 }
 
 
@@ -177,6 +206,7 @@ static bool _selectType = NO;
     _rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(MainW- 5-44, 20, 44, 44)];
     _rightBtn.titleLabel.textAlignment  = NSTextAlignmentRight;
     [_rightBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    _rightBtn.tag = 66;
     _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_rightBtn setTitleColor:mainColor forState:UIControlStateNormal];
     [_rightBtn addTarget:self action:@selector(tapEdit) forControlEvents:UIControlEventTouchUpInside];
@@ -257,6 +287,26 @@ static bool _selectType = NO;
     cell.DBmodel = self.arr[indexPath.row];
     cell.isSelect = ECOn;
     [self.arrIndexPaths addObject:indexPath];
+//    if (self.arrIndexPaths.count == self.arr.count) {
+//        for (int i = 0; i< _arrIndexPaths.count; i++) {
+//            NSIndexPath *indexPath = _arrIndexPaths[i];
+//            cartDealCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
+//            
+//            if (cell.isSelect == ECOff) {
+//                [self.deleteItems addObject:cell.DBmodel];
+//            }else{
+//                
+//                AffirmModel *model = [[AffirmModel alloc]init];
+//                model.dealName = cell.dealName;
+//                model.coount = cell.count;
+//                model.onePrice = cell.onePrice;
+//                
+//                [self.existItems addObject:model];
+//            }
+//            
+//        }
+//    }
+    
     return cell;
 }
 
@@ -273,7 +323,7 @@ static bool _selectType = NO;
 
 - (void)tapEdit{
     
-    if ([_rightBtn.titleLabel.text isEqualToString:@"编辑"]) {
+    if (_rightBtn.tag == 66) {
         [_rightBtn setTitle:@"完成" forState:UIControlStateNormal];
         _title.text = @"编辑购物车";
         [[NSNotificationCenter defaultCenter] postNotificationName:@"cartEdit" object:@"1"];
@@ -284,6 +334,8 @@ static bool _selectType = NO;
         _sumPrice.hidden = YES;
         lab.text = @"全选";
         _selectType = NO;
+        [self getSelectedItemsWith:2];
+        _rightBtn.tag = 67;
     }else{
         [_rightBtn setTitle:@"编辑" forState:UIControlStateNormal];
         _title.text = @"购物车";
@@ -295,6 +347,8 @@ static bool _selectType = NO;
         _sumPrice.hidden = NO;
         lab.text = @"应付:";
         _selectType = YES;
+        [self getSelectedItemsWith:1];
+        _rightBtn.tag = 66;
     }
     
     
@@ -305,23 +359,35 @@ static bool _selectType = NO;
     _selectType = !_selectType;
     if (_selectType) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"cartEdit" object:@"3"];
-        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
     }else{
         [[NSNotificationCenter defaultCenter]postNotificationName:@"cartEdit" object:@"4"];
-        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];
+        
+        [_selectBtn setImage:[UIImage imageNamed:@"icon_check_02@2x"] forState:UIControlStateNormal];
     }
 }
 
 - (void)TapClearingBtn{
+    if (_isA) {
+        AffirmViewController *VC =  [[AffirmViewController alloc]init];
+        VC.dealsArray = self.existItems;
+        VC.allPrice =_sumPrice.text;
+        [self.navigationController pushViewController:VC animated:YES];
+        
+    }else{
+        UIAlertView *alter = [[UIAlertView alloc]initWithTitle:@"提示" message:@"/(ㄒoㄒ)/~~确定要删除被选中的订单吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alter.tag = 66;
+        [alter show];
     
-    
-
+    }
 }
 
 
 - (void)getSelectedItemsWith:(int)type{
     [self.deleteItems removeAllObjects];
     [self.existItems removeAllObjects];
+    self.deleteItems = [NSMutableArray array];
+    self.existItems = [NSMutableArray array];
     sum = 0;
     sumCount = 0;
     for (int i = 0; i< _arrIndexPaths.count; i++) {
@@ -332,7 +398,13 @@ static bool _selectType = NO;
             if (cell.isSelect == ECOff) {
                 [self.deleteItems addObject:cell.DBmodel];
             }else{
-                [self.existItems addObject:cell.DBmodel];
+                
+                AffirmModel *model = [[AffirmModel alloc]init];
+                model.dealName = cell.dealName;
+                model.coount = cell.count;
+                model.onePrice = cell.onePrice;
+                
+                [self.existItems addObject:model];
                 sum = sum + cell.sumPirce;
                 sumCount = sumCount + cell.count;
             }
@@ -341,7 +413,12 @@ static bool _selectType = NO;
                 [self.deleteItems addObject:cell.DBmodel];
                 sumCount = sumCount + cell.count;
             }else{
-                [self.existItems addObject:cell.DBmodel];
+                AffirmModel *model = [[AffirmModel alloc]init];
+                model.dealName = cell.dealName;
+                model.coount = cell.count;
+                model.onePrice = cell.onePrice;
+                
+                [self.existItems addObject:model];
             }
         }
         
@@ -360,6 +437,31 @@ static bool _selectType = NO;
 
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+    if (alertView.tag == 66) {
+        
+        if (buttonIndex == 0) {
+            for (int i = 0; i < _deleteItems.count; i ++) {
+                DBdealModel *model = _deleteItems[i];
+                [DBHelper removeDeal:model.dealId withUserName:model.userName];
+            }
+            
+            [self tapEdit];
+            [self.cartDeals removeAllObjects];
+            [self.existItems removeAllObjects];
+            sum = 0 ;
+            sumCount = 0;
+            [self getBaiduDeals];
+            
+        }else{
+        
+        
+        }
+        
+    }
+
+}
 
 
 @end

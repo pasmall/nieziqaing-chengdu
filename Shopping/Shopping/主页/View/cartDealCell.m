@@ -212,6 +212,7 @@
     [_shopImg sd_setImageWithURL:shopImg placeholderImage:[UIImage imageNamed:@"ugc_photo"]];
     
     _title.text = dealData.min_title;
+    self.dealName  =dealData.min_title;
     
 //    _score.text =[NSString stringWithFormat:@"%.1f" , dealData.score] ;
     
@@ -229,7 +230,7 @@
     int now =[dealData.current_price intValue]/100;
     NSString *oneStr = [NSString stringWithFormat:@"￥%d",now];
     _oneprice.text = oneStr;
-    
+    self.onePrice = oneStr;
    
     
     
@@ -265,9 +266,9 @@
         _noBtn.hidden = NO;
         _isA = YES;
     }else if (x == 3){
-        _isSelect = ECOff;;
-    }else{
         _isSelect = ECOn;;
+    }else{
+        _isSelect = ECOff;;
     }
     if (_isSelect == ECOn) {
         [_selectBtn setImage:[UIImage imageNamed:@"icon_check_01@2x"] forState:UIControlStateNormal];

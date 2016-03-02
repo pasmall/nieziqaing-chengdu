@@ -31,6 +31,18 @@ static AppDataSource *datas;
         _userId = @"";
         _userName = [[NSUserDefaults standardUserDefaults] stringForKey:@"user_name"];;
         _userPsd = @"";
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"cityId"] == nil) {
+            _cityId = @800010000;
+        }else{
+            _cityId =[[NSUserDefaults standardUserDefaults] objectForKey:@"cityId"];
+        }
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"cityName"] == nil) {
+            _cityName = @"成都";
+        }else{
+            _cityName =[[NSUserDefaults standardUserDefaults] objectForKey:@"cityName"];
+        }
+        
         
     }
     
@@ -48,13 +60,27 @@ static AppDataSource *datas;
 - (void)setIsLogin:(BOOL)isLogin{
     _isLogin = isLogin;
     [[NSUserDefaults standardUserDefaults] setBool:isLogin forKey:@"is_login"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 
 }
 
 - (void)setUserName:(NSString *)userName{
     _userName = userName;
     [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"user_name"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     
+}
+
+- (void)setCityId:(NSNumber *)cityId{
+    _cityId = cityId;
+    [[NSUserDefaults standardUserDefaults] setObject:cityId forKey:@"cityId"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+
+- (void)setCityName:(NSString *)cityName{
+    _cityName = cityName;
+    [[NSUserDefaults standardUserDefaults] setObject:cityName forKey:@"cityName"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 @end

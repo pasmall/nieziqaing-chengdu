@@ -75,7 +75,7 @@
     
     __block BOOL result ;
     [db inDatabase:^(FMDatabase *db) {
-        NSString *sqlStr = [NSString stringWithFormat:@"delete from t_cart where dealId ='%@' ,  user_name ='%@';" , deal_id , userName];
+        NSString *sqlStr = [NSString stringWithFormat:@"delete from t_cart where dealId ='%@' and  user_name ='%@';" , deal_id , userName];
         result = [db executeUpdate:sqlStr];
     }];
     

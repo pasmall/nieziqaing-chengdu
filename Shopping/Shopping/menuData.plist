@@ -10,19 +10,19 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>服饰</string>
+		<string>服务</string>
 		<key>image</key>
 		<string>icon_homepage_default.png</string>
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>超市</string>
+		<string>酒店</string>
 		<key>image</key>
 		<string>icon_homepage_hotelCategory.png</string>
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>电影</string>
+		<string>休闲</string>
 		<key>image</key>
 		<string>icon_homepage_movieCategory.png</string>
 	</dict>

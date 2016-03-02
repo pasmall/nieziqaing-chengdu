@@ -30,6 +30,10 @@
 #import "DealInfoViewController.h"
 #import "BoxDealViewController.h"
 #import "LoginViewController.h"
+#import "ServiceViewController.h"
+#import "HotelViewController.h"
+#import "EntertainmentViewController.h"
+#import "WebViewController.h"
 
 
 @interface HomeViewController ()<UITableViewDataSource , UITableViewDelegate , UIScrollViewDelegate,MenuCellDelegate , DiscountDelegate , RushDelegate>{
@@ -58,7 +62,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _discountArray = [[NSMutableArray alloc] init];
-    _cityId = [[NSNumber alloc]initWithInt:800010000];
+    _cityId = [AppDataSource sharedDataSource].cityId;
     [self getBaiDuCityData];
     [self getBaiduDealsWithCityId:_cityId];
     
@@ -81,7 +85,7 @@
     
     [self setUpTableView];
     [self initNav];
-    [self getDiscountData];
+//    [self getDiscountData];
 
 }
 
@@ -123,11 +127,13 @@
 - (void)CityDidChange:(NSNotification *)sender{
     
     [cityBtn setTitle:sender.userInfo[@"CityName"] forState:UIControlStateNormal];
+    [[AppDataSource sharedDataSource] setCityName:sender.userInfo[@"CityName"]];
     
     for (int i = 0 ; i < self.cities.count; i++) {
         BaiDuCityData *city = self.cities[i];
         if ([city.short_name isEqualToString:sender.userInfo[@"CityName"]]) {
             _cityId = city.city_id;
+            [[AppDataSource sharedDataSource] setCityId:city.city_id];
             [self getBaiduDealsWithCityId:_cityId];
         }
     }
@@ -147,7 +153,7 @@
     cityBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cityBtn.frame = CGRectMake(10, 30, 40, 24);
     cityBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [cityBtn setTitle:@"成都" forState:UIControlStateNormal];
+    [cityBtn setTitle:[AppDataSource sharedDataSource].cityName forState:UIControlStateNormal];
     [cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
     [cityBtn addTarget:self action:@selector(TapCtiy) forControlEvents:UIControlEventTouchUpInside];
@@ -326,12 +332,44 @@
         cell.delegate = self;
         return cell;
     }else if (indexPath.row == 4){
-        DiscountCell *cell = [[DiscountCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell5"];
+//        DiscountCell *cell = [[DiscountCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell5"];
+//        
+//        cell.delegate = self;
+//        if (_discountArray.count != 0) {
+//            [cell setDiscountArray:_discountArray];
+//        }
+        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell5"];
         
-        cell.delegate = self;
-        if (_discountArray.count != 0) {
-            [cell setDiscountArray:_discountArray];
+        UIView *headView  = [[UIView alloc]init];
+        headView.backgroundColor =  [UIColor colorWithRed:74.0/255 green:56.0/255 blue:58.0/255 alpha:0.1];
+        headView.frame = CGRectMake(0, 0, MainW, 10);
+        [cell addSubview:headView];
+        
+        UIImageView *imgv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, MainW, 160)];
+        [imgv setImage:[UIImage imageNamed:@"hot.jpeg"]];
+        imgv.contentMode = UIViewContentModeScaleAspectFill;
+        [cell  addSubview:imgv];
+        
+        for (int i = 0; i < 4; i ++) {
+            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, MainW/2, 80)];
+            if (i%2 == 0) {
+                btn.x  = 0;
+            }else{
+                btn.x = MainW/2;
+            }
+            
+            if (i< 2) {
+                btn.y = 10;
+            }else{
+                btn.y = 90;
+            }
+            
+            btn.tag = 10+i;
+            
+            [btn addTarget:self action:@selector(Tapdiscount:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:btn];
         }
+        
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -462,6 +500,20 @@
         FoodViewController *Vc = [[FoodViewController alloc]init];
         Vc.cityId = _cityId;
         [self.navigationController pushViewController:Vc animated:YES];
+    }else if (index == 11){
+        ServiceViewController *Vc = [[ServiceViewController alloc]init];
+        Vc.cityId = _cityId;
+        [self.navigationController pushViewController:Vc animated:YES];
+    }else if (index == 12){
+        HotelViewController *Vc = [[HotelViewController alloc]init];
+        Vc.cityId = _cityId;
+        [self.navigationController pushViewController:Vc animated:YES];
+    
+    }else if (index == 13){
+        
+        EntertainmentViewController *Vc = [[EntertainmentViewController alloc]init];
+        Vc.cityId = _cityId;
+        [self.navigationController pushViewController:Vc animated:YES];
     }
 
 }
@@ -496,6 +548,36 @@
     
     
 }
+#pragma  discoutbtn
 
+- (void)Tapdiscount:(UIButton *)btn{
+    //TODO
+    if (btn.tag == 10) {
+        WebViewController *web = [[WebViewController alloc]init];
+        [web setUrlString:@"http://m.nuomi.com/326/0-0/0-0-0-0-0"];
+        web.titleString = @"火锅盛宴";
+        [self.navigationController pushViewController:web animated:YES];
+    }else if (btn.tag == 11) {
+        WebViewController *web = [[WebViewController alloc]init];
+        [web setUrlString:@"http://m.nuomi.com/326/0-0/0-0-0-0-0"];
+        web.titleString = @"爱宠专享";
+        [self.navigationController pushViewController:web animated:YES];
+    }
+    else if (btn.tag == 12) {
+        WebViewController *web = [[WebViewController alloc]init];
+        [web setUrlString:@"http://m.nuomi.com/326/0-0/0-0-0-0-0"];
+        web.titleString = @"丽人特惠";
+        [self.navigationController pushViewController:web animated:YES];
+    }
+    else if (btn.tag == 13) {
+        WebViewController *web = [[WebViewController alloc]init];
+        [web setUrlString:@"http://m.nuomi.com/326/0-0/0-0-0-0-0"];
+        web.titleString = @"充值特惠";
+        [self.navigationController pushViewController:web animated:YES];
+    }
+    
+    
+
+}
 
 @end

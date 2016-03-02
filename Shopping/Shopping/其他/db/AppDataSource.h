@@ -18,6 +18,10 @@
 
 @property (nonatomic,copy) NSString *userPsd;
 
+@property (nonatomic , copy)NSNumber *cityId;
+
+@property (nonatomic , copy)NSString *cityName;
+
 
 +(AppDataSource *)sharedDataSource;
 -(void)clearDatas;

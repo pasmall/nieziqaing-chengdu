@@ -140,10 +140,10 @@
 }
 
 #pragma mark - CLLocationManagerDelegate
-//-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-//    NSLog(@"didUpdateToLocation----");
-//    _checkLocation = newLocation;
-//}
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+    NSLog(@"didUpdateToLocation----");
+    _checkLocation = newLocation;
+}
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     NSLog(@"didUpdateToLocation+++");
@@ -152,6 +152,7 @@
     CLLocation *cl = [locations lastObject];
     _latitude = cl.coordinate.latitude;
     _longitude = cl.coordinate.longitude;
+    _nowlocation = cl;
     NSLog(@"纬度--%f",_latitude);
     NSLog(@"经度--%f",_longitude);
 }

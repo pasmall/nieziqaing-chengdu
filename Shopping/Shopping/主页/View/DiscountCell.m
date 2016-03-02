@@ -31,7 +31,7 @@
         headView.frame = CGRectMake(0, 0, MainW, 10);
         [self addSubview:headView];
         
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < _discountArray.count; i++) {
             //背景
             UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(i*MainW/2, 10, MainW/2, 80)];
             if (i<2) {
@@ -97,7 +97,7 @@
     }
     _array = discountArray;
     
-    for (int j = 0; j < 4; ++j) {
+    for (int j = 0; j < _discountArray.count; ++j) {
         UILabel *titleLabel = (UILabel *)[self viewWithTag:j+200];
         UILabel *subtitleLabel = (UILabel *)[self viewWithTag:j+220];
         UIImageView *imageView = (UIImageView *)[self viewWithTag:j+240];

@@ -28,4 +28,9 @@ typedef enum : NSUInteger {
 
 @property (nonatomic , assign)int count;
 
+@property (nonatomic , copy)NSString *dealName;
+
+@property (nonatomic , copy)NSString *onePrice;
+
+
 @end
