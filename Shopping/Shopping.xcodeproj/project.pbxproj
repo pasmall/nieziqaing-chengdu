@@ -70,6 +70,13 @@
 		5749690C1C7DB7F700011FA2 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 574968F71C7DB7F700011FA2 /* UIScrollView+MJExtension.m */; };
 		5749690D1C7DB7F700011FA2 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 574968F91C7DB7F700011FA2 /* UIScrollView+MJRefresh.m */; };
 		5749690E1C7DB7F700011FA2 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 574968FB1C7DB7F700011FA2 /* UIView+MJExtension.m */; };
+		575A1E181C87CE9E00BA650C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 575A1E151C87CE9E00BA650C /* libWeChatSDK.a */; };
+		575A1E1A1C87CEAD00BA650C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 575A1E191C87CEAD00BA650C /* libz.tbd */; };
+		575A1E1C1C87CEC300BA650C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575A1E1B1C87CEC300BA650C /* SystemConfiguration.framework */; };
+		575A1E1E1C87CEDF00BA650C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 575A1E1D1C87CEDF00BA650C /* libc++.tbd */; };
+		575A1E201C87CFFE00BA650C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575A1E1F1C87CFFE00BA650C /* CoreTelephony.framework */; };
+		575A1E291C87DF4C00BA650C /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 575A1E281C87DF4C00BA650C /* PayViewController.m */; };
+		575A1E2B1C87E6DB00BA650C /* weixinicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 575A1E2A1C87E6DB00BA650C /* weixinicon.png */; };
 		5762A1B11C1815BD00242529 /* cityGroups.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5762A1B01C1815BD00242529 /* cityGroups.plist */; };
 		576AD3611C4634AB00EADD5D /* DealInfoHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 576AD3601C4634AB00EADD5D /* DealInfoHeadCell.m */; };
 		5779B05C1C21395400A9C152 /* menuData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5779B05B1C21395400A9C152 /* menuData.plist */; };
@@ -583,6 +590,16 @@
 		574968F91C7DB7F700011FA2 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		574968FA1C7DB7F700011FA2 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		574968FB1C7DB7F700011FA2 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		575A1E151C87CE9E00BA650C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		575A1E161C87CE9E00BA650C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		575A1E171C87CE9E00BA650C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		575A1E191C87CEAD00BA650C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		575A1E1B1C87CEC300BA650C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		575A1E1D1C87CEDF00BA650C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		575A1E1F1C87CFFE00BA650C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		575A1E271C87DF4C00BA650C /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
+		575A1E281C87DF4C00BA650C /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
+		575A1E2A1C87E6DB00BA650C /* weixinicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weixinicon.png; sourceTree = "<group>"; };
 		5762A1B01C1815BD00242529 /* cityGroups.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityGroups.plist; sourceTree = "<group>"; };
 		576AD35F1C4634AB00EADD5D /* DealInfoHeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealInfoHeadCell.h; sourceTree = "<group>"; };
 		576AD3601C4634AB00EADD5D /* DealInfoHeadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealInfoHeadCell.m; sourceTree = "<group>"; };
@@ -1049,8 +1066,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				575A1E201C87CFFE00BA650C /* CoreTelephony.framework in Frameworks */,
+				575A1E1E1C87CEDF00BA650C /* libc++.tbd in Frameworks */,
+				575A1E1C1C87CEC300BA650C /* SystemConfiguration.framework in Frameworks */,
+				575A1E1A1C87CEAD00BA650C /* libz.tbd in Frameworks */,
 				574968731C7DB19F00011FA2 /* libsqlite3.0.tbd in Frameworks */,
 				57E5F8AD1C4E14AA0014B0BB /* CoreLocation.framework in Frameworks */,
+				575A1E181C87CE9E00BA650C /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1112,7 @@
 		574967A41C7DA94A00011FA2 /* other */ = {
 			isa = PBXGroup;
 			children = (
+				575A1E141C87CE9E00BA650C /* SDKExport */,
 				574968CF1C7DB7F700011FA2 /* MJRefresh */,
 				574968671C7DB15500011FA2 /* SVProgressHUD */,
 				5749684A1C7DB13200011FA2 /* AFNetworking */,
@@ -1306,6 +1329,16 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		575A1E141C87CE9E00BA650C /* SDKExport */ = {
+			isa = PBXGroup;
+			children = (
+				575A1E151C87CE9E00BA650C /* libWeChatSDK.a */,
+				575A1E161C87CE9E00BA650C /* WXApi.h */,
+				575A1E171C87CE9E00BA650C /* WXApiObject.h */,
+			);
+			path = SDKExport;
+			sourceTree = "<group>";
+		};
 		5779B06D1C214F9F00A9C152 /* GBTopLineView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1429,6 +1462,7 @@
 				57A079CB1C868A1400DDF305 /* hot.jpeg */,
 				57A079EE1C86DEB600DDF305 /* me.jpeg */,
 				57A079EF1C86DEB600DDF305 /* me2.jpeg */,
+				575A1E2A1C87E6DB00BA650C /* weixinicon.png */,
 				5792B1ED1C1E90C90084410A /* 动画 */,
 				5792B21B1C1E90CA0084410A /* 我的 */,
 				5792B24C1C1E90CA0084410A /* 箭头 */,
@@ -2082,6 +2116,8 @@
 				57A812231C75AB81001E25B5 /* BoxDealViewController.m */,
 				578BBB4C1C8419EB00FDB11D /* AffirmViewController.h */,
 				578BBB4D1C8419EB00FDB11D /* AffirmViewController.m */,
+				575A1E271C87DF4C00BA650C /* PayViewController.h */,
+				575A1E281C87DF4C00BA650C /* PayViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2112,6 +2148,10 @@
 		D03846A6C92AE7C9BC89F699 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				575A1E1F1C87CFFE00BA650C /* CoreTelephony.framework */,
+				575A1E1D1C87CEDF00BA650C /* libc++.tbd */,
+				575A1E1B1C87CEC300BA650C /* SystemConfiguration.framework */,
+				575A1E191C87CEAD00BA650C /* libz.tbd */,
 				574968721C7DB19F00011FA2 /* libsqlite3.0.tbd */,
 				57E5F8AC1C4E14AA0014B0BB /* CoreLocation.framework */,
 			);
@@ -2451,6 +2491,7 @@
 				578B4F6F1C7AE84700DC01FE /* icon_user_10.png in Resources */,
 				5779B0621C21403000A9C152 /* icon_homepage_default.png in Resources */,
 				5792B3881C1E90CA0084410A /* icon_sms_open@2x.png in Resources */,
+				575A1E2B1C87E6DB00BA650C /* weixinicon.png in Resources */,
 				5792B3671C1E90CA0084410A /* ic_submit@3x.png in Resources */,
 				5792B33F1C1E90CA0084410A /* citySelectArrow@2x.png in Resources */,
 				5792B3231C1E90CA0084410A /* mine_nuomiquan_gray@2x.png in Resources */,
@@ -2659,6 +2700,7 @@
 				5749686F1C7DB15500011FA2 /* SVIndefiniteAnimatedView.m in Sources */,
 				574967CC1C7DA94A00011FA2 /* SDWebImageDownloader.m in Sources */,
 				57A317291C7414A2006A6F66 /* DiscountViewController.m in Sources */,
+				575A1E291C87DF4C00BA650C /* PayViewController.m in Sources */,
 				57C63EAA1C17CCE800F7BE54 /* CityViewController.m in Sources */,
 				578E1BB81C19722A004DA3B2 /* MJIvar.m in Sources */,
 				57A317351C741608006A6F66 /* DisLabelModel.m in Sources */,

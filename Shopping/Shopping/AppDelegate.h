@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @import CoreLocation;
+#import "WXApi.h"
+#import "WXApiObject.h"
 
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate , CLLocationManagerDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate , CLLocationManagerDelegate,WXApiDelegate>{
 
     //定位
     CLLocationManager *_locationManager;//用于获取位置

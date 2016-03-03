@@ -9,7 +9,7 @@
 #import "AffirmViewController.h"
 #import "Common.h"
 #import "AffirmModel.h"
-
+#import "PayViewController.h"
 
 @interface AffirmViewController ()<UITableViewDataSource , UITableViewDelegate >{
     UIView *_navView;
@@ -301,7 +301,10 @@
 
 
 - (void)TapClearingBtn{
+    PayViewController *pay = [[PayViewController alloc]init];
+    pay.price = self.allPrice;
     
+    [self.navigationController pushViewController:pay animated:YES];
 
 }
 
