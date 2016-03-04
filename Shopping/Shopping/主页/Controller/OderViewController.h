@@ -1,5 +1,5 @@
 //
-//  PayViewController.h
+//  OderViewController.h
 //  Shopping
 //
 //  Created by 聂自强 on 16/3/3.
@@ -7,14 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Common.h"
 
-@interface PayViewController : UIViewController<UIAlertViewDelegate>{
+@interface OderViewController : UIViewController{
     UIView *_navView;
     UIButton *_backBtn;
     UILabel *_title;
 }
 
-@property (nonatomic , copy)NSString *price;
-
-@property (nonatomic )NSArray *array;
 @end

@@ -77,6 +77,8 @@
 		575A1E201C87CFFE00BA650C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575A1E1F1C87CFFE00BA650C /* CoreTelephony.framework */; };
 		575A1E291C87DF4C00BA650C /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 575A1E281C87DF4C00BA650C /* PayViewController.m */; };
 		575A1E2B1C87E6DB00BA650C /* weixinicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 575A1E2A1C87E6DB00BA650C /* weixinicon.png */; };
+		575A1E2D1C882D9F00BA650C /* weixinpay.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 575A1E2C1C882D9F00BA650C /* weixinpay.jpeg */; };
+		575A1E301C8840FD00BA650C /* OderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 575A1E2F1C8840FD00BA650C /* OderViewController.m */; };
 		5762A1B11C1815BD00242529 /* cityGroups.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5762A1B01C1815BD00242529 /* cityGroups.plist */; };
 		576AD3611C4634AB00EADD5D /* DealInfoHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 576AD3601C4634AB00EADD5D /* DealInfoHeadCell.m */; };
 		5779B05C1C21395400A9C152 /* menuData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5779B05B1C21395400A9C152 /* menuData.plist */; };
@@ -600,6 +602,9 @@
 		575A1E271C87DF4C00BA650C /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
 		575A1E281C87DF4C00BA650C /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
 		575A1E2A1C87E6DB00BA650C /* weixinicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weixinicon.png; sourceTree = "<group>"; };
+		575A1E2C1C882D9F00BA650C /* weixinpay.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = weixinpay.jpeg; sourceTree = "<group>"; };
+		575A1E2E1C8840FD00BA650C /* OderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OderViewController.h; sourceTree = "<group>"; };
+		575A1E2F1C8840FD00BA650C /* OderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OderViewController.m; sourceTree = "<group>"; };
 		5762A1B01C1815BD00242529 /* cityGroups.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityGroups.plist; sourceTree = "<group>"; };
 		576AD35F1C4634AB00EADD5D /* DealInfoHeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealInfoHeadCell.h; sourceTree = "<group>"; };
 		576AD3601C4634AB00EADD5D /* DealInfoHeadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealInfoHeadCell.m; sourceTree = "<group>"; };
@@ -1463,6 +1468,7 @@
 				57A079EE1C86DEB600DDF305 /* me.jpeg */,
 				57A079EF1C86DEB600DDF305 /* me2.jpeg */,
 				575A1E2A1C87E6DB00BA650C /* weixinicon.png */,
+				575A1E2C1C882D9F00BA650C /* weixinpay.jpeg */,
 				5792B1ED1C1E90C90084410A /* 动画 */,
 				5792B21B1C1E90CA0084410A /* 我的 */,
 				5792B24C1C1E90CA0084410A /* 箭头 */,
@@ -2118,6 +2124,8 @@
 				578BBB4D1C8419EB00FDB11D /* AffirmViewController.m */,
 				575A1E271C87DF4C00BA650C /* PayViewController.h */,
 				575A1E281C87DF4C00BA650C /* PayViewController.m */,
+				575A1E2E1C8840FD00BA650C /* OderViewController.h */,
+				575A1E2F1C8840FD00BA650C /* OderViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2326,6 +2334,7 @@
 				5792B2F91C1E90CA0084410A /* icon_hud_9@3x.png in Resources */,
 				5792B3561C1E90CA0084410A /* gsafe@3x.png in Resources */,
 				5792B3371C1E90CA0084410A /* mine_voucher@2x.png in Resources */,
+				575A1E2D1C882D9F00BA650C /* weixinpay.jpeg in Resources */,
 				5792B3161C1E90CA0084410A /* mine_daifukuan@3x.png in Resources */,
 				57A079E71C86BF2600DDF305 /* icon_map_cateidz@2x.png in Resources */,
 				5792B33D1C1E90CA0084410A /* brower_pre_0@2x.png in Resources */,
@@ -2667,6 +2676,7 @@
 				574612721C85827E003F4724 /* ServiceViewController.m in Sources */,
 				5746127B1C859031003F4724 /* MapAnnotation.m in Sources */,
 				578F83831C76B53C00DC493B /* LoginViewController.m in Sources */,
+				575A1E301C8840FD00BA650C /* OderViewController.m in Sources */,
 				5749685F1C7DB13200011FA2 /* AFHTTPRequestOperationManager.m in Sources */,
 				578E1BBA1C19722A004DA3B2 /* MJMethod.m in Sources */,
 				57ED33241C2289C1005DBD49 /* BaiduDealsData.m in Sources */,

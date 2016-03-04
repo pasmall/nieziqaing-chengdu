@@ -303,7 +303,7 @@
 - (void)TapClearingBtn{
     PayViewController *pay = [[PayViewController alloc]init];
     pay.price = self.allPrice;
-    
+    pay.array = self.dealsArray;
     [self.navigationController pushViewController:pay animated:YES];
 
 }

@@ -14,4 +14,7 @@
 @property (nonatomic , copy)NSString *onePrice;
 @property (nonatomic , assign)int coount;
 
+@property (nonatomic , copy)NSString *dealId;
+@property (nonatomic , copy)NSString *userName;
+
 @end

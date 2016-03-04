@@ -9,6 +9,8 @@
 #import "MImageCell.h"
 #import "ZYBannerView.h"
 #import "Common.h"
+#import "WebViewController.h"
+
 @interface MImageCell ()<ZYBannerViewDataSource , ZYBannerViewDelegate>{
     ZYBannerView *_banner;
     NSArray *_imageArray;
@@ -67,7 +69,10 @@
 
 #pragma mark ZYBannerViewDelegate
 - (void)banner:(ZYBannerView *)banner didSelectItemAtIndex:(NSInteger)index{
-
+    WebViewController *web = [[WebViewController alloc]init];
+    [web setUrlString:@"https://m.taobao.com/#index"];
+    web.titleString = @"活动展示";
+    [self.homeVc.navigationController pushViewController:web animated:YES];
 }
 
 - (void)bannerCurrentPage:(NSInteger)index{

@@ -154,6 +154,8 @@ static int i = 0;
             int now =[data.current_price intValue]/100;
             NSString *oneStr = [NSString stringWithFormat:@"￥%d",now];
             affirm.onePrice = oneStr;
+            affirm.dealId = model.dealId;
+            affirm.userName = model.userName;
             
             [self.existItems addObject:affirm];
             
@@ -403,7 +405,9 @@ static int i = 0;
                 model.dealName = cell.dealName;
                 model.coount = cell.count;
                 model.onePrice = cell.onePrice;
-                
+                DBdealModel *m = cell.DBmodel;
+                model.dealId = m.dealId;
+                model.userName = m.userName;
                 [self.existItems addObject:model];
                 sum = sum + cell.sumPirce;
                 sumCount = sumCount + cell.count;

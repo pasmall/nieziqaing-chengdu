@@ -10,6 +10,8 @@
 #import "Common.h"
 #import "WXApi.h"
 #import "AppDelegate.h"
+#import "AffirmModel.h"
+
 
 @implementation PayViewController
 
@@ -21,6 +23,14 @@
     
     [self initNav];
     [self initDownBtn];
+    
+    
+    UIImageView *imgv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, MainW, 320*90/374)];
+    imgv.y = 64;
+    [imgv setImage:[UIImage imageNamed:@"weixinpay.jpeg"]];
+    imgv.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [self.view  addSubview:imgv];
     
 }
 
@@ -57,7 +67,7 @@
 }
 
 - (void)initDownBtn{
-    UIButton *payBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MainH - 54, MainW - 40, 39)];
+    UIButton *payBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MainH - 64, MainW - 40, 44)];
     payBtn.backgroundColor = RGB(224, 47, 52);
     
     NSString *str = [NSString stringWithFormat:@"支付 %@" ,_price];
@@ -124,6 +134,14 @@
                 UIAlertView *alter = [[UIAlertView alloc]initWithTitle:@"恭喜" message:@"成功购买,还想再逛逛?" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"查看我的订单", nil];
                 alter.tag =66;
                 [alter show];
+                
+                if (self.array != nil) {
+                    for (int i =0 ; i<_array.count; i ++) {
+                        AffirmModel *model = _array[i];
+                        [DBHelper removeDeal:model.dealId withUserName:model.userName];
+                    }
+                }
+                
 //                return @"";
             }else{
 //                return [dict objectForKey:@"retmsg"];

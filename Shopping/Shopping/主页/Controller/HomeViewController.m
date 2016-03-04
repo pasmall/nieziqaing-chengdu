@@ -314,6 +314,7 @@
     
     if (indexPath.row == 0) {
         MImageCell *cell = [[MImageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1" menuArray:[NSMutableArray arrayWithArray:@[@"1.jpg" , @"2.jpg" , @"3.jpg"]]];
+        cell.homeVc = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if (indexPath.row == 1){

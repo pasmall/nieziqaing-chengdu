@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeViewController.h"
 
 @interface MImageCell : UITableViewCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier menuArray:(NSMutableArray *)imageArray;
 
+@property (nonatomic , weak)HomeViewController *homeVc;
 @end
