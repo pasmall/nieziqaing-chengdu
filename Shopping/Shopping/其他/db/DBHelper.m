@@ -29,9 +29,9 @@
     [db inDatabase:^(FMDatabase *db) {
         BOOL result  = [db executeUpdate:cartCreate];
         BOOL result1 = [db executeUpdate:userCreate];
+        BOOL result2 = [db executeUpdate:oderCreate];
         
-        
-        if (result&&result1) {
+        if (result&&result1&&result2) {
             NSLog(@"创表成功");
         }else{
             NSLog(@"创表失败");
@@ -68,6 +68,38 @@
     
     return result;
     
+}
+
++(BOOL)modfiyDeal:(NSString *)deal_id withUserName:(NSString *)userName andAdd:(BOOL)isAdd{
+
+    FMDatabaseQueue *db = [FMDatabaseQueue databaseQueueWithPath:sqlPath];
+    
+    __block BOOL result = NO ;
+    
+    [db inDatabase:^(FMDatabase *db) {
+        
+        FMResultSet *rs = [db executeQuery:@"select * from t_cart;" ];
+        while ([rs next]) {
+            if ([[rs  stringForColumn:@"user_name"] isEqualToString:userName] &&[[rs stringForColumn:@"dealId"] isEqualToString:deal_id]) {
+                int count = 0;
+                
+                if (isAdd) {
+                    count = [rs intForColumn:@"count"] + 1;
+                    NSString *sqlStr = [NSString stringWithFormat:@"update t_cart set count ='%d'  where dealId ='%@' and user_name ='%@' ;" ,count,deal_id , userName];
+                    
+                    result = [db executeUpdate:sqlStr];
+                }else{
+                    count = [rs intForColumn:@"count"] - 1;
+                    NSString *sqlStr = [NSString stringWithFormat:@"update t_cart set count ='%d'  where dealId ='%@' and user_name ='%@' ;" ,count,deal_id , userName];
+                    
+                    result = [db executeUpdate:sqlStr];
+                }
+                
+            }
+        }
+    
+    }];
+    return result;
 }
 
 + (BOOL)removeDeal:(NSString *)deal_id withUserName:(NSString *)userName{
@@ -215,6 +247,55 @@
     }];
     
     return re;
+}
+
+#pragma mark oder
+
++(BOOL)addOderWithDeal:(DBOderMdoel *)oder{
+    
+    FMDatabaseQueue *db = [FMDatabaseQueue databaseQueueWithPath:sqlPath];
+    
+   __block BOOL result = NO ;
+    
+    
+    [db inDatabase:^(FMDatabase *db) {
+        NSString *sqlStr = [NSString stringWithFormat:@"insert into t_oder (dealId , user_name , count , start , end , status) values ('%@' , '%@' ,'%d' ,'%@' , '%@','%@' );" , oder.dealId , oder.userName , oder.count, oder.st , oder.et , oder.status];
+        result = [db executeUpdate:sqlStr];
+    }];
+    return result;
+}
+
+
++ (NSArray *)getOderWithUserName:(NSString *)userName{
+    NSMutableArray *mary = [NSMutableArray array];
+    FMDatabaseQueue *db = [FMDatabaseQueue databaseQueueWithPath:sqlPath];
+    //查询数据
+    [db inDatabase:^(FMDatabase *db) {
+        
+        NSString *sql = [NSString stringWithFormat:@"select * from t_oder where user_name ='%@';" , userName];
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        while (rs.next) {
+            DBOderMdoel *oder = [[DBOderMdoel alloc]init];
+            
+            //1.获取第一列id 的数据
+            oder.userName = [rs stringForColumn:@"user_name"];
+            //2.获取第二列name的数据
+            oder.dealId =[rs stringForColumn:@"dealId"];
+            //3.获取第三列age的数据
+            oder.count =  [rs intForColumn:@"count"];
+            
+            oder.st = [rs stringForColumn:@"start"];
+            oder.et = [rs stringForColumn:@"end"];
+            oder.status = [rs stringForColumn:@"status"];
+            
+            [mary addObject:oder];
+        }
+    }];
+    
+    return mary;
+
+
 }
 
 

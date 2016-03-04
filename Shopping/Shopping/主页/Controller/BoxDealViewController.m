@@ -34,6 +34,9 @@ static bool _selectType = NO;
     
     
     BOOL _isA;
+    
+    
+    UIImageView *imgv;
 }
 
 @property (nonatomic , strong)UITableView *tableView;
@@ -70,9 +73,9 @@ static bool _selectType = NO;
     
     [self initNav];
     [self initDownView];
-    //读取数据
+    
 
-    [self getBaiduDeals];
+    
     
     UITableView *tabelView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, MainW, MainH-64 - 44)];
     tabelView.dataSource = self;
@@ -81,6 +84,17 @@ static bool _selectType = NO;
     tabelView.showsVerticalScrollIndicator = NO;
     _tableView = tabelView;
     [self.view addSubview:tabelView];
+    
+    
+    imgv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, MainW, 587*MainW / 373)];
+    imgv.contentMode = UIViewContentModeScaleAspectFit;
+    [imgv setImage:[UIImage imageNamed:@"cart.jpeg"]];
+    [self.view addSubview:imgv];;
+    imgv.hidden = YES;
+    
+    
+    //获取数据
+    [self getBaiduDeals];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(isCartChange:) name:@"isCart" object:nil];
     
@@ -132,10 +146,10 @@ static int i = 0;
     NSString *httpUrl = @"http://apis.baidu.com/baidunuomi/openapi/dealdetail";
 //    sum = 0;
 //    sumCount = 0;
-    
-    
     self.arr =[DBHelper getDealsWithUserName:[AppDataSource sharedDataSource].userName];
-//    for (int i =0 ; i < self.arr.count; i++) {
+    if (self.arr.count > 0) {
+        _rightBtn.hidden = NO;
+        //    for (int i =0 ; i < self.arr.count; i++) {
         DBdealModel *model = self.arr[i];
         NSString *httpArg = [NSString stringWithFormat:@"deal_id=%@" , model.dealId];
         NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, httpArg];
@@ -177,6 +191,26 @@ static int i = 0;
             }
             
         }];
+        
+    }else{
+        _rightBtn.hidden = YES;
+        
+        _sumPrice.text = [NSString stringWithFormat:@"￥%d" , 0];
+        NSString *str = [NSString stringWithFormat:@"结算(%d)" , 0];
+        [_clearingBtn setTitle:str forState:UIControlStateNormal];
+        
+        _clearingBtn.enabled = NO;
+        _clearingBtn.backgroundColor = RGB(200, 200, 200);
+        
+        
+        _tableView.hidden = YES;
+        
+        [_tableView reloadData];
+        [SVProgressHUD dismiss];
+        
+        imgv.hidden = NO;
+    }
+    
         
 //    }
 }
@@ -275,7 +309,9 @@ static int i = 0;
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
     return self.cartDeals.count;
+   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -454,6 +490,7 @@ static int i = 0;
             [self tapEdit];
             [self.cartDeals removeAllObjects];
             [self.existItems removeAllObjects];
+            self.arr = nil;
             sum = 0 ;
             sumCount = 0;
             [self getBaiduDeals];

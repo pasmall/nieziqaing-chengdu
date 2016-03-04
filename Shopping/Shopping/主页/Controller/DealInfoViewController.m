@@ -306,6 +306,8 @@
     
 }
 - (void)TapPay{
+    
+    if ([AppDataSource sharedDataSource].isLogin) {
     AffirmViewController *aff = [[AffirmViewController alloc]init];
     AffirmModel *model = [[AffirmModel alloc]init];
     model.dealName = self.deal.min_title;
@@ -314,10 +316,17 @@
     NSString *oneStr = [NSString stringWithFormat:@"￥%d",now];
     model.onePrice = oneStr;
     model.coount = 1;
+    model.dealId = self.dealId;
+    model.userName = [AppDataSource sharedDataSource].userName;
+    
     aff.dealsArray = [NSArray arrayWithObjects:model, nil];
     aff.allPrice = oneStr;
     
     [self.navigationController pushViewController:aff animated:YES];
+    }else{
+        LoginViewController *vc = [[LoginViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
 }
 

@@ -291,10 +291,42 @@
 
 - (void)TapRemoveBtn{
     NSLog(@"减一个");
+
+    if ([_field.text intValue] > 1) {
+        NSString *str = [NSString stringWithFormat:@"%d" , [_field.text intValue] -1];
+        _field.text = str;
+        
+        [DBHelper modfiyDeal:_DBmodel.dealId withUserName:_DBmodel.userName andAdd:NO];
+        _DBmodel.count = _DBmodel.count -1;
+        self.DBmodel = _DBmodel;
+        
+        
+        if (_isA) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"isCart" object:@"1"];
+        }else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"isCart" object:@"2"];
+        }
+    }
 }
 
 - (void)TapAddBtn{
     NSLog(@"加一个");
+    if ([_field.text intValue] < 10) {
+        NSString *str = [NSString stringWithFormat:@"%d" , [_field.text intValue] +1];
+        _field.text = str;
+        
+        [DBHelper modfiyDeal:_DBmodel.dealId withUserName:_DBmodel.userName andAdd:YES];
+        _DBmodel.count = _DBmodel.count +1;
+        self.DBmodel = _DBmodel;
+        
+        
+        if (_isA) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"isCart" object:@"1"];
+        }else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"isCart" object:@"2"];
+        }
+    }
+   
 
 }
 

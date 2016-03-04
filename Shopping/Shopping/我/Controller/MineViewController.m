@@ -9,6 +9,8 @@
 #import "MineViewController.h"
 #import "Common.h"
 #import "LoginViewController.h"
+#import "OderViewController.h"
+
 
 @interface MineViewController ()<UIAlertViewDelegate>{
     UIButton *loginbtn;
@@ -20,6 +22,8 @@
     UILabel *tip;
     
     UIButton *offBtn;
+    
+    UIButton *oderBtn;
 }
 
 @end
@@ -97,6 +101,11 @@
     imgView2.backgroundColor = [UIColor redColor];
     [scroll addSubview:imgView2];
     
+    oderBtn = [[UIButton alloc]initWithFrame:CGRectMake(MainW- 80, 160, 80, 20)];
+    [oderBtn addTarget:self action:@selector(tapOder) forControlEvents:UIControlEventTouchUpInside];
+    [scroll addSubview:oderBtn];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -154,6 +163,12 @@
    
     
 }
+
+
+- (void)tapOder{
+    [self.navigationController pushViewController:[[OderViewController alloc]init] animated:YES];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     if (alertView.tag == 66) {

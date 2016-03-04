@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "UserModel.h"
-
+#import "DBOderMdoel.h"
 
 @interface DBHelper : NSObject
+
+
++(BOOL)addOderWithDeal:(DBOderMdoel *)oder;
++ (NSArray *)getOderWithUserName:(NSString *)userName;
 
 +(BOOL)addDeal:(NSString *)deal_id withUserName:(NSString *)userName;
 
@@ -18,6 +22,7 @@
 
 + (NSArray *)getDealsWithUserName:(NSString *)userName;
 
++(BOOL)modfiyDeal:(NSString *)deal_id withUserName:(NSString *)userName andAdd:(BOOL)isAdd;
 
 +(BOOL)adduserInfo:(UserModel *)userInfo;
 

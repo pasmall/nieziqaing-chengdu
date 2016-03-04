@@ -15,6 +15,8 @@
 
 #define cartCreate  @"create table if not exists t_cart (id  integer primary key autoincrement ,user_name text not null , dealId text not null , count int not null default 1); "
 
+#define oderCreate  @"create table if not exists t_oder(id  integer primary key autoincrement ,user_name text not null , dealId text not null , count int not null , start text not null , end text not null ,  status text not null); "
+
 #define userCreate @"create table if not exists t_user (id integer primary key autoincrement , user_name text not null unique , user_psd varchar(40));"
 
 /**

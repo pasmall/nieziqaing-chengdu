@@ -11,6 +11,7 @@
 #import "WXApi.h"
 #import "AppDelegate.h"
 #import "AffirmModel.h"
+#import "OderViewController.h"
 
 
 @implementation PayViewController
@@ -139,6 +140,28 @@
                     for (int i =0 ; i<_array.count; i ++) {
                         AffirmModel *model = _array[i];
                         [DBHelper removeDeal:model.dealId withUserName:model.userName];
+                        
+                        DBOderMdoel *oder = [[DBOderMdoel alloc]init];
+                        
+                        oder.dealId = model.dealId;
+                        oder.userName = model.userName;
+                        oder.count = model.coount;
+                        
+                        NSDate *currentDate = [NSDate date];//获取当前时间，日期
+                        NSTimeInterval  oneDay = 24*60*60*1;
+                        
+                        NSDate *endDate = [currentDate initWithTimeIntervalSinceNow:oneDay * 7];
+                        
+                        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                        [dateFormatter setDateFormat:@"YYYY/MM/dd"];
+                        NSString *st = [dateFormatter stringFromDate:currentDate];
+                        NSString *et = [dateFormatter stringFromDate:endDate];
+                        
+                        oder.st = st;
+                        oder.et = et;
+                        oder.status = @"待使用";
+                        
+                        [DBHelper addOderWithDeal:oder];
                     }
                 }
                 
@@ -170,7 +193,7 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
             
         }else{
-            
+            [self.navigationController pushViewController:[[OderViewController alloc]init] animated:YES];
         }
     }
     
