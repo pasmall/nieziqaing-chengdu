@@ -71,7 +71,7 @@
     
     Vc1.title = @"首页";
     Vc2.title = @"附近";
-    Vc3.title = @"消息";
+    Vc3.title = @"购物车";
     Vc4.title = @"我的";
     
     NSArray *VcArray = @[Na1,Na2 ,Na3,Na4];

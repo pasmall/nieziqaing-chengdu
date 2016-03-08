@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sping.PNG" translatesAutoresizingMaskIntoConstraints="NO" id="jbk-wN-R3d" userLabel="sping.png">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sping.png" translatesAutoresizingMaskIntoConstraints="NO" id="jbk-wN-R3d" userLabel="sping.png">
                                 <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
                             </imageView>
                         </subviews>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="sping.PNG" width="640" height="1136"/>
+        <image name="sping.png" width="640" height="1136"/>
     </resources>
 </document>

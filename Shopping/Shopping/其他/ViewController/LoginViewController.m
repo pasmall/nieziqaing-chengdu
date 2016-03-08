@@ -69,7 +69,6 @@
     [_passWordField setSecureTextEntry:YES];
     [_passWordField setDelegate:self];
     [_passWordField addTarget:self action:@selector(checkTextFieldInput:) forControlEvents:UIControlEventEditingChanged];
-    
     [fieldView addSubview:_phoneField];
     [fieldView addSubview:lineView];
     [fieldView addSubview:_passWordField];
@@ -78,8 +77,6 @@
     
     _logInBtn= [[UIButton alloc]initWithFrame:CGRectMake(0 ,CGRectGetMaxY(fieldView.frame)+44, 80, 40)];
     _logInBtn.centerX = MainW/2;
-//    [_logInBtn setImage:[UIImage imageNamed:@"ec_login-btn-01"] forState:UIControlStateNormal];
-    
     [_logInBtn setTitle:@"登录" forState:UIControlStateNormal];
     [_logInBtn setTitle:@"登录" forState:UIControlStateDisabled];
     _logInBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:10];
@@ -160,18 +157,6 @@
 
 - (void)checkTextFieldInput:(UITextField *)textField
 {
-//        if (textField == _phoneField) {
-//            if (textField.text.length > 11) {
-//                textField.text = [textField.text substringToIndex:11];
-//            }
-//        }
-//        else if (textField == _passWordField)
-//        {
-//            if (textField.text.length > 4) {
-//                textField.text = [textField.text substringToIndex:4];
-//            }
-//        }
-    
     //当用户输入了电话和密码时候logIN按钮才能点击
     if (_passWordField.text.length > 0 && _phoneField.text.length > 0) {
         [_logInBtn setEnabled:YES];

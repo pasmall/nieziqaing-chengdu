@@ -34,6 +34,7 @@
 #import "HotelViewController.h"
 #import "EntertainmentViewController.h"
 #import "WebViewController.h"
+#import "SearchViewController.h"
 
 
 @interface HomeViewController ()<UITableViewDataSource , UITableViewDelegate , UIScrollViewDelegate,MenuCellDelegate , DiscountDelegate , RushDelegate>{
@@ -300,7 +301,7 @@
  */
 - (void)TapSearch{
     
-    NSLog(@"搜索");
+    [self.navigationController pushViewController:[[SearchViewController alloc]init] animated:YES];
 }
 
 

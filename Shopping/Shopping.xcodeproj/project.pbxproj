@@ -101,6 +101,7 @@
 		5779B0731C214F9F00A9C152 /* GBTopLineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5779B0711C214F9F00A9C152 /* GBTopLineViewModel.m */; };
 		5779B0761C2151F700A9C152 /* MHotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5779B0751C2151F700A9C152 /* MHotCell.m */; };
 		5779B07E1C21633E00A9C152 /* hot.png in Resources */ = {isa = PBXBuildFile; fileRef = 5779B07D1C21633E00A9C152 /* hot.png */; };
+		577EEF451C8D0FA70041815B /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 577EEF441C8D0FA70041815B /* SearchViewController.m */; };
 		5783202E1C72FDF000FF0C9F /* DealInfoTipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5783202D1C72FDF000FF0C9F /* DealInfoTipCell.m */; };
 		578320311C7303E400FF0C9F /* ShoppingMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 578320301C7303E400FF0C9F /* ShoppingMenu.m */; };
 		5783203A1C7321FE00FF0C9F /* NetworkSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 578320391C7321FE00FF0C9F /* NetworkSingleton.m */; };
@@ -640,6 +641,8 @@
 		5779B0741C2151F700A9C152 /* MHotCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHotCell.h; sourceTree = "<group>"; };
 		5779B0751C2151F700A9C152 /* MHotCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHotCell.m; sourceTree = "<group>"; };
 		5779B07D1C21633E00A9C152 /* hot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hot.png; sourceTree = "<group>"; };
+		577EEF431C8D0FA70041815B /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		577EEF441C8D0FA70041815B /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		5783202C1C72FDF000FF0C9F /* DealInfoTipCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealInfoTipCell.h; sourceTree = "<group>"; };
 		5783202D1C72FDF000FF0C9F /* DealInfoTipCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealInfoTipCell.m; sourceTree = "<group>"; };
 		5783202F1C7303E400FF0C9F /* ShoppingMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingMenu.h; sourceTree = "<group>"; };
@@ -2135,6 +2138,8 @@
 				5746126F1C858224003F4724 /* subViewController */,
 				57D7FA121C16C8D00053118B /* HomeViewController.h */,
 				57D7FA131C16C8D00053118B /* HomeViewController.m */,
+				577EEF431C8D0FA70041815B /* SearchViewController.h */,
+				577EEF441C8D0FA70041815B /* SearchViewController.m */,
 				57C63EA81C17CCE800F7BE54 /* CityViewController.h */,
 				57C63EA91C17CCE800F7BE54 /* CityViewController.m */,
 				57BA5CE41C4619BA00E67EBC /* DealInfoViewController.h */,
@@ -2634,6 +2639,7 @@
 				5779B0761C2151F700A9C152 /* MHotCell.m in Sources */,
 				578BBB4E1C8419EB00FDB11D /* AffirmViewController.m in Sources */,
 				5783203A1C7321FE00FF0C9F /* NetworkSingleton.m in Sources */,
+				577EEF451C8D0FA70041815B /* SearchViewController.m in Sources */,
 				57A317361C741608006A6F66 /* DisTopicModel.m in Sources */,
 				574968641C7DB13200011FA2 /* AFURLRequestSerialization.m in Sources */,
 				5783203D1C73259D00FF0C9F /* DiscountCell.m in Sources */,

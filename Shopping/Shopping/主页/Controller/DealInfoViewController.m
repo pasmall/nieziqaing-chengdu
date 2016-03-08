@@ -21,7 +21,12 @@
 #import "AffirmViewController.h"
 #import "AffirmModel.h"
 
-@interface DealInfoViewController ()<UITableViewDataSource , UITableViewDelegate>{
+#import <Social/Social.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
+
+
+@interface DealInfoViewController ()<UITableViewDataSource , UITableViewDelegate,MFMailComposeViewControllerDelegate>{
     UIButton *btn1;
     UIButton *btn2;
     UIButton *btn3;
@@ -270,7 +275,79 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)tapBtn2{
+    UIAlertController *alter = [[UIAlertController alloc]init];
     
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+    }];
+    
+//    UIAlertAction  *action1 = [UIAlertAction actionWithTitle:@"Twitter" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        SLComposeViewController *tweetSheet=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+//        [tweetSheet setInitialText:@"#Shopping"];
+//        NSURL *url = [NSURL URLWithString:self.deal.image];
+//        [tweetSheet addURL:url];
+//        [self.navigationController presentViewController:tweetSheet animated:YES completion:nil];
+//    }];
+//    UIAlertAction  *action2 = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        SLComposeViewController *tweetSheet=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+//        [tweetSheet setInitialText:@"#Shopping"];
+//        NSURL *url = [NSURL URLWithString:self.deal.image];
+//        [tweetSheet addURL:url];
+//        [self.navigationController presentViewController:tweetSheet animated:YES completion:nil];
+//       
+//    }];
+    UIAlertAction  *action3 = [UIAlertAction actionWithTitle:@"新浪微博" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        SLComposeViewController *tweetSheet=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
+        [tweetSheet setInitialText:@"#Shopping"];
+        NSURL *url = [NSURL URLWithString:self.deal.image];
+        [tweetSheet addURL:url];
+        [self.navigationController presentViewController:tweetSheet animated:YES completion:nil];
+        
+    }];
+    UIAlertAction  *action4 = [UIAlertAction actionWithTitle:@"腾讯微博" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        SLComposeViewController *tweetSheet=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTencentWeibo];
+        [tweetSheet setInitialText:@"#Shopping"];
+        NSURL *url = [NSURL URLWithString:self.deal.image];
+        [tweetSheet addURL:url];
+        [self.navigationController presentViewController:tweetSheet animated:YES completion:nil];
+        
+    }];
+    UIAlertAction  *action5 = [UIAlertAction actionWithTitle:@"邮件" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
+        if(mailClass != nil){
+            //メールが送信できる状態か確認
+            if([mailClass canSendMail]){
+                [self showComposerSheet];
+            }else{
+                [self makeAlert:@"E-mail cannot be launched.": @"Please check the e-mail settings."];
+            }
+        }
+        
+    }];
+    UIAlertAction  *action6 = [UIAlertAction actionWithTitle:@"AirDorp" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+        NSArray *activityItems = @[self.deal.image];
+        
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+        
+        [self presentViewController:activityVC animated:YES completion:nil];
+        
+    }];
+    
+    
+//    [alter addAction:action1];
+//    [alter addAction:action2];
+    [alter addAction:action3];
+    [alter addAction:action4];
+    [alter addAction:action5];
+    [alter addAction:action6];
+    [alter addAction:actionCancel];
+    
+    [self presentViewController:alter animated:YES completion:^{
+        
+    }];
     
 }
 - (void)tapBtn3{
@@ -350,5 +427,37 @@
     }
 }
 
+
+
+-(void)showComposerSheet{
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc]init];
+    
+    picker.mailComposeDelegate  = self;
+    
+    [picker setMessageBody:self.deal.image isHTML:NO];
+    [self presentViewController:picker animated:YES completion:nil];
+
+    
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
+    
+    switch(result){
+        caseMFMailComposeResultCancelled:
+            //キャンセルした場合
+            break; caseMFMailComposeResultSaved:
+            //保存した場合
+            break; caseMFMailComposeResultSent:
+            //送信した場合
+            break; caseMFMailComposeResultFailed:
+            //                         [self makeAlert:@"メール送信失敗":@"メールの送信に失敗しました。ネットワークの 設定などを確認して下さい"];
+            break; default:
+        break; }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)makeAlert:(NSString*)title :(NSString*)text{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:title message:text delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
 
 @end
