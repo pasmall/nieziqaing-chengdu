@@ -248,23 +248,6 @@
     
 }
 
-#pragma mark UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-//    CGFloat y =scrollView.contentOffset.y;
-    
-//    if (y <0) {
-//        
-//        imgCell.imageView.frame =CGRectMake(-10, -20, 300, 300);
-//
-//    }else{
-//        
-//    }
-    
-    
-}
-
 
 #pragma mark -- BtnAction
 
@@ -282,21 +265,6 @@
         
     }];
     
-//    UIAlertAction  *action1 = [UIAlertAction actionWithTitle:@"Twitter" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        SLComposeViewController *tweetSheet=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-//        [tweetSheet setInitialText:@"#Shopping"];
-//        NSURL *url = [NSURL URLWithString:self.deal.image];
-//        [tweetSheet addURL:url];
-//        [self.navigationController presentViewController:tweetSheet animated:YES completion:nil];
-//    }];
-//    UIAlertAction  *action2 = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        SLComposeViewController *tweetSheet=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-//        [tweetSheet setInitialText:@"#Shopping"];
-//        NSURL *url = [NSURL URLWithString:self.deal.image];
-//        [tweetSheet addURL:url];
-//        [self.navigationController presentViewController:tweetSheet animated:YES completion:nil];
-//       
-//    }];
     UIAlertAction  *action3 = [UIAlertAction actionWithTitle:@"新浪微博" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         SLComposeViewController *tweetSheet=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
         [tweetSheet setInitialText:@"#Shopping"];
@@ -335,10 +303,7 @@
         [self presentViewController:activityVC animated:YES completion:nil];
         
     }];
-    
-    
-//    [alter addAction:action1];
-//    [alter addAction:action2];
+
     [alter addAction:action3];
     [alter addAction:action4];
     [alter addAction:action5];

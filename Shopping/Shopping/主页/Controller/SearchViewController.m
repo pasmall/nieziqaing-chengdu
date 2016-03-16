@@ -140,9 +140,7 @@
     BaiDuAPI *api = [BaiDuAPI shareBaiDuApi];
     [SVProgressHUD showWithStatus:@"正在搜索..." maskType:SVProgressHUDMaskTypeClear];
     NSNumber *cityId = [AppDataSource sharedDataSource].cityId;
-    
-//    NSString *str = [NSString   stringWithCString:_title.text encoding:NSUTF8StringEncoding];
-    
+     
     
     NSString * encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( kCFAllocatorDefault, (CFStringRef)_title.text, NULL, NULL,  kCFStringEncodingUTF8 ));
     

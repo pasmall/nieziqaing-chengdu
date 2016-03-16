@@ -325,25 +325,6 @@ static int i = 0;
     cell.DBmodel = self.arr[indexPath.row];
     cell.isSelect = ECOn;
     [self.arrIndexPaths addObject:indexPath];
-//    if (self.arrIndexPaths.count == self.arr.count) {
-//        for (int i = 0; i< _arrIndexPaths.count; i++) {
-//            NSIndexPath *indexPath = _arrIndexPaths[i];
-//            cartDealCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
-//            
-//            if (cell.isSelect == ECOff) {
-//                [self.deleteItems addObject:cell.DBmodel];
-//            }else{
-//                
-//                AffirmModel *model = [[AffirmModel alloc]init];
-//                model.dealName = cell.dealName;
-//                model.coount = cell.count;
-//                model.onePrice = cell.onePrice;
-//                
-//                [self.existItems addObject:model];
-//            }
-//            
-//        }
-//    }
     
     return cell;
 }
