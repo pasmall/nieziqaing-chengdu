@@ -12,7 +12,7 @@
 #import "CartViewController.h"
 #import "MineViewController.h"
 #import "Common.h"
-
+#import "GetMessageViewController.h"
 
 //获得RGB颜色
 #define RGBA(r, g, b, a)                    [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
@@ -63,15 +63,16 @@
     NearByViewController *Vc2 = [[NearByViewController  alloc]init];
     UINavigationController *Na2 = [[UINavigationController alloc]initWithRootViewController:Vc2];
     
-    CartViewController *Vc3 = [[CartViewController  alloc]init];
+    GetMessageViewController *Vc3 = [[GetMessageViewController  alloc]init];
     UINavigationController *Na3 = [[UINavigationController alloc]initWithRootViewController:Vc3];
+    Na3.navigationBarHidden = YES;
     
     MineViewController *Vc4 = [[MineViewController  alloc]init];
     UINavigationController *Na4 = [[UINavigationController alloc]initWithRootViewController:Vc4];
     
     Vc1.title = @"首页";
     Vc2.title = @"附近";
-    Vc3.title = @"购物车";
+    Vc3.title = @"消息";
     Vc4.title = @"我的";
     
     NSArray *VcArray = @[Na1,Na2 ,Na3,Na4];

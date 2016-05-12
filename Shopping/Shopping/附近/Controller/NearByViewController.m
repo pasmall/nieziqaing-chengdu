@@ -95,10 +95,10 @@
     
     _title = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, MainW- 100, 24)];
     _title.centerX = MainW /2;
-    _title.text = @"看看附近的商家吧";
+    _title.text = @"附近商家";
     _title.textAlignment = NSTextAlignmentCenter;
-    _title.textColor = [UIColor blackColor];
-    _title.font = [UIFont systemFontOfSize:12];
+    _title.textColor = [UIColor whiteColor];
+    _title.font = [UIFont systemFontOfSize:12 weight:2];
     [navView addSubview:_title];
     
     navView.backgroundColor = RGB(232, 201, 87);

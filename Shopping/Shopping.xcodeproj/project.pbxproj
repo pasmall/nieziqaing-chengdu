@@ -14,6 +14,12 @@
 		57031D071C8971B4001389CE /* oder.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 57031D061C8971B4001389CE /* oder.jpeg */; };
 		57031D091C8985D6001389CE /* easymaster.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 57031D081C8985D6001389CE /* easymaster.jpeg */; };
 		57031D0B1C8992A1001389CE /* wastUser.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 57031D0A1C8992A1001389CE /* wastUser.jpeg */; };
+		57041F481CE3090C00E321BE /* ChatTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57041F461CE3090C00E321BE /* ChatTileView.m */; };
+		57041F4B1CE30C2700E321BE /* GetMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57041F4A1CE30C2700E321BE /* GetMessageViewController.m */; };
+		57041F4E1CE30C5300E321BE /* Test1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57041F4D1CE30C5300E321BE /* Test1ViewController.m */; };
+		57041F511CE30C9F00E321BE /* Test2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57041F501CE30C9F00E321BE /* Test2ViewController.m */; };
+		57041F541CE3162E00E321BE /* mess1.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 57041F521CE3162E00E321BE /* mess1.PNG */; };
+		57041F551CE3162E00E321BE /* mess2.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 57041F531CE3162E00E321BE /* mess2.PNG */; };
 		5712846D1C27D60300DDE555 /* FoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5712846C1C27D60300DDE555 /* FoodViewController.m */; };
 		571284731C27DDEE00DDE555 /* FoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 571284721C27DDEE00DDE555 /* FoodCell.m */; };
 		574612721C85827E003F4724 /* ServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 574612711C85827E003F4724 /* ServiceViewController.m */; };
@@ -482,6 +488,16 @@
 		57031D061C8971B4001389CE /* oder.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = oder.jpeg; sourceTree = "<group>"; };
 		57031D081C8985D6001389CE /* easymaster.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = easymaster.jpeg; sourceTree = "<group>"; };
 		57031D0A1C8992A1001389CE /* wastUser.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wastUser.jpeg; sourceTree = "<group>"; };
+		57041F461CE3090C00E321BE /* ChatTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTileView.m; sourceTree = "<group>"; };
+		57041F471CE3090C00E321BE /* ChatTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTileView.h; sourceTree = "<group>"; };
+		57041F491CE30C2700E321BE /* GetMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetMessageViewController.h; sourceTree = "<group>"; };
+		57041F4A1CE30C2700E321BE /* GetMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetMessageViewController.m; sourceTree = "<group>"; };
+		57041F4C1CE30C5300E321BE /* Test1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test1ViewController.h; sourceTree = "<group>"; };
+		57041F4D1CE30C5300E321BE /* Test1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test1ViewController.m; sourceTree = "<group>"; };
+		57041F4F1CE30C9F00E321BE /* Test2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test2ViewController.h; sourceTree = "<group>"; };
+		57041F501CE30C9F00E321BE /* Test2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test2ViewController.m; sourceTree = "<group>"; };
+		57041F521CE3162E00E321BE /* mess1.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mess1.PNG; sourceTree = "<group>"; };
+		57041F531CE3162E00E321BE /* mess2.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mess2.PNG; sourceTree = "<group>"; };
 		5712846B1C27D60300DDE555 /* FoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FoodViewController.h; path = ../FoodViewController.h; sourceTree = "<group>"; };
 		5712846C1C27D60300DDE555 /* FoodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FoodViewController.m; path = ../FoodViewController.m; sourceTree = "<group>"; };
 		571284711C27DDED00DDE555 /* FoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodCell.h; sourceTree = "<group>"; };
@@ -1117,6 +1133,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57041F451CE308F000E321BE /* part */ = {
+			isa = PBXGroup;
+			children = (
+				57041F471CE3090C00E321BE /* ChatTileView.h */,
+				57041F461CE3090C00E321BE /* ChatTileView.m */,
+				57041F4C1CE30C5300E321BE /* Test1ViewController.h */,
+				57041F4D1CE30C5300E321BE /* Test1ViewController.m */,
+				57041F4F1CE30C9F00E321BE /* Test2ViewController.h */,
+				57041F501CE30C9F00E321BE /* Test2ViewController.m */,
+			);
+			name = part;
+			sourceTree = "<group>";
+		};
 		5746126F1C858224003F4724 /* subViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1482,6 +1511,8 @@
 				578E1B941C19722A004DA3B2 /* MJExtension */,
 				5792B1EB1C1E90C90084410A /* qrcode_scan_bg_Green_iphone5@2x.png */,
 				5792B1EC1C1E90C90084410A /* voice@2x.png */,
+				57041F521CE3162E00E321BE /* mess1.PNG */,
+				57041F531CE3162E00E321BE /* mess2.PNG */,
 				5779B0671C21418B00A9C152 /* sping.png */,
 				57A079CB1C868A1400DDF305 /* hot.jpeg */,
 				57A079EE1C86DEB600DDF305 /* me.jpeg */,
@@ -1960,8 +1991,6 @@
 		57D7F9FF1C16C7C80053118B /* 我 */ = {
 			isa = PBXGroup;
 			children = (
-				57D7FA061C16C8240053118B /* View */,
-				57D7FA071C16C8240053118B /* Model */,
 				57D7FA081C16C8240053118B /* Controller */,
 			);
 			path = "我";
@@ -1991,8 +2020,6 @@
 			isa = PBXGroup;
 			children = (
 				57D7FA0F1C16C8370053118B /* Controller */,
-				57D7FA101C16C8370053118B /* View */,
-				57D7FA111C16C8370053118B /* Model */,
 			);
 			path = "购物车";
 			sourceTree = "<group>";
@@ -2014,20 +2041,6 @@
 				5798BC991C7D4B0000AC2E3C /* DBdealModel.m */,
 				57031CFC1C892A30001389CE /* DBOderMdoel.h */,
 				57031CFD1C892A30001389CE /* DBOderMdoel.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		57D7FA061C16C8240053118B /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		57D7FA071C16C8240053118B /* Model */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2163,24 +2176,13 @@
 		57D7FA0F1C16C8370053118B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				57041F451CE308F000E321BE /* part */,
 				57A8121F1C75AB0E001E25B5 /* CartViewController.h */,
 				57A812201C75AB0E001E25B5 /* CartViewController.m */,
+				57041F491CE30C2700E321BE /* GetMessageViewController.h */,
+				57041F4A1CE30C2700E321BE /* GetMessageViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		57D7FA101C16C8370053118B /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		57D7FA111C16C8370053118B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		D03846A6C92AE7C9BC89F699 /* Frameworks */ = {
@@ -2357,6 +2359,7 @@
 				5792B34C1C1E90CA0084410A /* dianyingxuanzuo_40@2x.png in Resources */,
 				5792B3C61C1E90CA0084410A /* mine_notification_gray@2x.png in Resources */,
 				5792B3C21C1E90CA0084410A /* icon_nav_sousuo_pressed@2x.png in Resources */,
+				57041F551CE3162E00E321BE /* mess2.PNG in Resources */,
 				5779B06C1C214C4400A9C152 /* line_VIP_02.png in Resources */,
 				57A079E21C86A1FE00DDF305 /* icon_map_cateid_99.png in Resources */,
 				5792B3BC1C1E90CA0084410A /* icon_nav_saoyisao_normal@2x.png in Resources */,
@@ -2543,6 +2546,7 @@
 				5792B3571C1E90CA0084410A /* gshare@2x.png in Resources */,
 				5792B35E1C1E90CA0084410A /* home_arrow_down_red@2x.png in Resources */,
 				5792B30B1C1E90CA0084410A /* mine_card.png in Resources */,
+				57041F541CE3162E00E321BE /* mess1.PNG in Resources */,
 				5792B3891C1E90CA0084410A /* icon_sms_open@3x.png in Resources */,
 				5792B3241C1E90CA0084410A /* mine_nuomiquan_gray@3x.png in Resources */,
 				5792B3631C1E90CA0084410A /* home_banner_close@3x.png in Resources */,
@@ -2654,6 +2658,7 @@
 				7520BECF1C3BB334004B3A6F /* MineViewController.m in Sources */,
 				574969021C7DB7F700011FA2 /* MJRefreshAutoNormalFooter.m in Sources */,
 				57A812181C759973001E25B5 /* MBProgressHUD+Custom.m in Sources */,
+				57041F511CE30C9F00E321BE /* Test2ViewController.m in Sources */,
 				574968621C7DB13200011FA2 /* AFSecurityPolicy.m in Sources */,
 				5798BC9A1C7D4B0000AC2E3C /* DBdealModel.m in Sources */,
 				57D7F9C71C1683570053118B /* main.m in Sources */,
@@ -2677,6 +2682,7 @@
 				574967D11C7DA94A00011FA2 /* UIImage+GIF.m in Sources */,
 				57ED33271C228B03005DBD49 /* BaiDuDealData.m in Sources */,
 				57A317401C7417C2006A6F66 /* RecommendModel.m in Sources */,
+				57041F481CE3090C00E321BE /* ChatTileView.m in Sources */,
 				5749690D1C7DB7F700011FA2 /* UIScrollView+MJRefresh.m in Sources */,
 				57D7FA171C16C90F0053118B /* NearByViewController.m in Sources */,
 				5779B0721C214F9F00A9C152 /* GBTopLineView.m in Sources */,
@@ -2715,6 +2721,7 @@
 				578F83831C76B53C00DC493B /* LoginViewController.m in Sources */,
 				575A1E301C8840FD00BA650C /* OderViewController.m in Sources */,
 				5749685F1C7DB13200011FA2 /* AFHTTPRequestOperationManager.m in Sources */,
+				57041F4B1CE30C2700E321BE /* GetMessageViewController.m in Sources */,
 				578E1BBA1C19722A004DA3B2 /* MJMethod.m in Sources */,
 				57ED33241C2289C1005DBD49 /* BaiduDealsData.m in Sources */,
 				574967CA1C7DA94A00011FA2 /* SDWebImageCompat.m in Sources */,
@@ -2738,6 +2745,7 @@
 				574612781C858372003F4724 /* EntertainmentViewController.m in Sources */,
 				5749690C1C7DB7F700011FA2 /* UIScrollView+MJExtension.m in Sources */,
 				578E1BBE1C19722A004DA3B2 /* NSObject+MJKeyValue.m in Sources */,
+				57041F4E1CE30C5300E321BE /* Test1ViewController.m in Sources */,
 				57BC8A581C2001E900942D97 /* MRefreshHeader.m in Sources */,
 				578320311C7303E400FF0C9F /* ShoppingMenu.m in Sources */,
 				579370201C3A567000AEE53D /* MRefreshFooter.m in Sources */,

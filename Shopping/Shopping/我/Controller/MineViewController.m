@@ -48,9 +48,10 @@
     topView.backgroundColor = RGB(232, 201, 87);
     
     userIcon = [UIButton buttonWithType:UIButtonTypeCustom];
-    userIcon.frame = CGRectMake(20, 20, 34, 34);
+    userIcon.frame = CGRectMake(20, 20, 54, 54);
     userIcon.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [userIcon setImage:[UIImage imageNamed:@"icon_user_1"] forState:UIControlStateNormal];
+    [userIcon addTarget:self action:@selector(tapSelectIcon) forControlEvents:UIControlEventTouchDown];
     userIcon.hidden = YES;
     
     
@@ -70,7 +71,7 @@
     tip.text = @"(´•༝• `)~~用shopping,方便快捷，省钱省心.";
     tip.textAlignment =NSTextAlignmentCenter;
     
-    tipLab = [[UILabel alloc]initWithFrame:CGRectMake(64, 20, MainW - 64, 34)];
+    tipLab = [[UILabel alloc]initWithFrame:CGRectMake(84, 20, MainW - 64, 54)];
     tipLab.font = [UIFont systemFontOfSize:12];
     tipLab.textColor = RGB(131, 175, 155);
     tipLab.hidden = YES;
@@ -162,6 +163,19 @@
     
    
     
+}
+
+- (void)tapSelectIcon{
+    
+    UIAlertAction  *action1 = [UIAlertAction actionWithTitle:@"Twitter" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+    }];
+    UIAlertAction  *action2 = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+
+    }];
+    
+
 }
 
 
