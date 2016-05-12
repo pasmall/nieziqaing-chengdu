@@ -12,7 +12,7 @@
 #import "OderViewController.h"
 
 
-@interface MineViewController ()<UIAlertViewDelegate>{
+@interface MineViewController ()<UIAlertViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIButton *loginbtn;
     
     UIButton *userIcon;
@@ -24,6 +24,8 @@
     UIButton *offBtn;
     
     UIButton *oderBtn;
+    
+    UIImagePickerController *pickerController;
 }
 
 @end
@@ -35,6 +37,8 @@
     self.navigationController.navigationBarHidden = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets  = NO;
+    
+    [self createData];
     
     UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MainW , MainH - 44)];
     scroll.contentSize = CGSizeMake(MainW, 631);
@@ -50,7 +54,27 @@
     userIcon = [UIButton buttonWithType:UIButtonTypeCustom];
     userIcon.frame = CGRectMake(20, 20, 54, 54);
     userIcon.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [userIcon setImage:[UIImage imageNamed:@"icon_user_1"] forState:UIControlStateNormal];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    //读取文件
+    NSString *icomImage = @"icon";
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", icomImage]];
+    
+    BOOL blHave=[[NSFileManager defaultManager]fileExistsAtPath:filePath];
+    if(blHave){
+        NSLog(@"alreadyhave");
+         NSData *imgData = [NSData dataWithContentsOfFile:filePath];
+        UIImage *imge = [UIImage imageWithData:imgData];
+        [userIcon setImage:imge forState:UIControlStateNormal];
+    }else{
+        [userIcon setImage:[UIImage imageNamed:@"icon_user_1"] forState:UIControlStateNormal];
+    }
+    
+    
+    
+    
+    userIcon.layer.cornerRadius = userIcon.width*0.5;
+    userIcon.clipsToBounds = YES;
     [userIcon addTarget:self action:@selector(tapSelectIcon) forControlEvents:UIControlEventTouchDown];
     userIcon.hidden = YES;
     
@@ -131,6 +155,15 @@
 }
 
 
+- (void)createData
+{
+    //初始化pickerController
+    pickerController = [[UIImagePickerController alloc]init];
+    pickerController.view.backgroundColor = [UIColor whiteColor];
+    pickerController.delegate = self;
+    pickerController.allowsEditing = YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -167,17 +200,96 @@
 
 - (void)tapSelectIcon{
     
-    UIAlertAction  *action1 = [UIAlertAction actionWithTitle:@"Twitter" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+    UIAlertAction  *action1 = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self makePhoto];
     }];
-    UIAlertAction  *action2 = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+    UIAlertAction  *action2 = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self choosePicture];
 
     }];
     
+    UIAlertAction  *action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+    }];
+    
+    UIAlertController *alter = [[UIAlertController alloc]init];
+    [alter addAction:action1];
+    [alter addAction:action2];
+    
+    [alter addAction:action3];
+    
+    [self presentViewController:alter animated:YES completion:^{
+        
+    }];
 
 }
 
+//跳转到imagePicker里
+- (void)makePhoto
+{
+    pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:pickerController animated:YES completion:nil];
+}
+//跳转到相册
+- (void)choosePicture
+{
+    pickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    [self presentViewController:pickerController animated:YES completion:nil];
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    NSLog(@"%s,info == %@",__func__,info);
+    
+    UIImage *userImage = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    
+    userImage = [self scaleImage:userImage toScale:0.3];
+    
+    //保存图片
+        [self saveImage:userImage name:@"icon"];
+    
+    [pickerController dismissViewControllerAnimated:YES completion:^{
+        
+        
+    }];
+    [userIcon setImage:userImage forState:UIControlStateNormal];
+    [userIcon setImage:userImage forState:UIControlStateHighlighted];
+    userIcon.contentMode = UIViewContentModeScaleAspectFill;
+   
+
+}
+//保存照片到沙盒路径(保存)
+- (void)saveImage:(UIImage *)image name:(NSString *)iconName
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    //写入文件
+    NSString *icomImage = iconName;
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", icomImage]];
+    
+    
+    
+    BOOL blHave=[[NSFileManager defaultManager]fileExistsAtPath:filePath];
+    if(blHave){
+        NSLog(@"alreadyhave");
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+        return;
+    }
+    // 保存文件的名称
+    //    [[self getDataByImage:image] writeToFile:filePath atomically:YES];
+    [UIImagePNGRepresentation(image)writeToFile: filePath  atomically:YES];
+}
+
+//缩放图片
+- (UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize
+{
+    UIGraphicsBeginImageContext(CGSizeMake(image.size.width*scaleSize,image.size.height*scaleSize));
+    [image drawInRect:CGRectMake(0, 0, image.size.width * scaleSize, image.size.height *scaleSize)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSLog(@"%@",NSStringFromCGSize(scaledImage.size));
+    return scaledImage;
+}
 
 - (void)tapOder{
     [self.navigationController pushViewController:[[OderViewController alloc]init] animated:YES];
@@ -195,6 +307,84 @@
             offBtn.hidden = YES;
         }
     }
+}
+
+//修正照片方向(手机转90度方向拍照)
+- (UIImage *)fixOrientation:(UIImage *)aImage {
+    
+    // No-op if the orientation is already correct
+    if (aImage.imageOrientation == UIImageOrientationUp)
+        return aImage;
+    
+    // We need to calculate the proper transformation to make the image upright.
+    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationDown:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, aImage.size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+            
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+            
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, aImage.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        default:
+            break;
+    }
+    
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationUpMirrored:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+            
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        default:
+            break;
+    }
+    
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    CGContextRef ctx = CGBitmapContextCreate(NULL, aImage.size.width, aImage.size.height,
+                                             CGImageGetBitsPerComponent(aImage.CGImage), 0,
+                                             CGImageGetColorSpace(aImage.CGImage),
+                                             CGImageGetBitmapInfo(aImage.CGImage));
+    CGContextConcatCTM(ctx, transform);
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            // Grr...
+            CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.height,aImage.size.width), aImage.CGImage);
+            break;
+            
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.width,aImage.size.height), aImage.CGImage);
+            break;
+    }
+    
+    // And now we just create a new UIImage from the drawing context
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+    UIImage *img = [UIImage imageWithCGImage:cgimg];
+    CGContextRelease(ctx);
+    CGImageRelease(cgimg);
+    return img;
 }
 
 @end

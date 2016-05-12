@@ -42,7 +42,7 @@
     [self initMapView];
     [self getBaiduDealsWithCityId:326];
     [self getBaiduDealsWithCityId:316];
-    [self getBaiduDealsWithCityId:320];
+    [self getBaiduDealsWithCityId:377];
     
     
 }
