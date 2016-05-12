@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,26 +16,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sping.png" translatesAutoresizingMaskIntoConstraints="NO" id="jbk-wN-R3d" userLabel="sping.png">
-                                <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sping.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="igC-6d-VAU">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="jbk-wN-R3d" secondAttribute="trailing" constant="-20" id="I81-tb-77k"/>
-                            <constraint firstItem="jbk-wN-R3d" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="IJb-dh-7Xx"/>
-                            <constraint firstItem="jbk-wN-R3d" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="RCe-Rd-Cha"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="jbk-wN-R3d" secondAttribute="bottom" id="hUq-0X-9TC"/>
+                            <constraint firstItem="igC-6d-VAU" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="GXs-2L-Pl7"/>
+                            <constraint firstAttribute="trailing" secondItem="igC-6d-VAU" secondAttribute="trailing" id="H8q-AQ-OdV"/>
+                            <constraint firstItem="igC-6d-VAU" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="YsS-sS-IiH"/>
+                            <constraint firstItem="igC-6d-VAU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="q9Y-zI-xut"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="150" y="365"/>
+            <point key="canvasLocation" x="105" y="320"/>
         </scene>
     </scenes>
     <resources>
-        <image name="sping.png" width="640" height="1136"/>
+        <image name="sping.jpeg" width="640" height="1136"/>
     </resources>
 </document>
